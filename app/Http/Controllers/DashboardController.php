@@ -8,7 +8,10 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+
     public function index(){
+
+        $countTotalPatients = Patients::count();
         
         $ageStart = 0;
         $ageEnd = 5; 
@@ -586,7 +589,7 @@ class DashboardController extends Controller
         return view('layouts.dashboard', 
         compact('boysCount', 'girlsCount', 'boysCount2', 'girlsCount2','boysCount3', 'girlsCount3','boysCount4', 'girlsCount4','boysCount5', 'girlsCount5','girlsCount4','boysCount6', 'girlsCount6',
                  'countsByAgeRange', 'countsByAgeRangeUnder','countsByAgeRangeSeU', 'countsByAgeRangeLfaN','countsByAgeRangeLfaS','countsByAgeRangeLfaSt','countsByAgeRangeLfaT','countsByAgeRangeWflN',
-                 'countsByAgeRangeWflS', 'countsByAgeRangeWflM', 'countsByAgeRangeWflOb', 'countsByAgeRangeWflOv'));
+                 'countsByAgeRangeWflS', 'countsByAgeRangeWflM', 'countsByAgeRangeWflOb', 'countsByAgeRangeWflOv','countTotalPatients'));
 
 }
 }

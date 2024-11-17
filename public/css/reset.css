@@ -64,7 +64,7 @@
     background-color: #fff;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     padding-left: 16px;
-    padding-right: 88px;
+    padding-right: 50px;
 }
 
 .form-floating input:focus {
@@ -153,6 +153,46 @@
     text-decoration: underline;
   }
 
+
+   /* Top notification style */
+   .top-notification {
+    visibility: hidden;
+    position: fixed;
+    top: -100px; /* Initially hidden off-screen */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff; /* White background */
+    color: #e74c3c; /* Red text color for error */
+    padding: 20px 30px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 15px;
+    z-index: 10000;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    display: flex;
+    flex-direction: column; /* Stack header and message */
+    align-items: center;
+    justify-content: flex-start; /* Align items at the top */
+    text-align: center;
+    transition: top 0.5s ease; /* Smooth slide transition for top position */
+}
+
+/* Header style */
+.notification-header {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Slide-in animation */
+.top-notification.show {
+    visibility: visible;
+    top: 20px; /* Slide down to this position */
+}
+
+
 /* Container for the error message */
 .error-message-container {
   position: relative; /* Make sure the error message container is relative to the form */
@@ -220,16 +260,16 @@
     }
   
     .form-floating input {
-      padding: 13px 13px 11px;
+      padding: 12px 12px 12px;
       border: 1px solid #868484;
       background-color: transparent;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       padding-left: 16px;
-      padding-right: 60px;
+      padding-right: 50px;
     }
   
     button {
-      padding: 13px;
+      padding: 12px;
     }
   }
   

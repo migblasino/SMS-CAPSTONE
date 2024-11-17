@@ -17,7 +17,12 @@
         <h2>Verify Email Address</h2>
         <div class="divider"></div>
         <p>Please check your email for a verification link. If you don't see it, you can request a new one below.</p>
-        <a href="#" class="verify-button">Resend Verification Email</a>
+
+        <!-- Form for resending the verification email -->
+        <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
+            @csrf  <!-- CSRF token for security -->
+            <button type="submit" class="verify-button">Resend Verification Email</button>
+        </form>
     </div>
 </body>
 </html>

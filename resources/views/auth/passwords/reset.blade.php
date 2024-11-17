@@ -9,6 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+<!-- Enhanced Top Notification with Header -->
+<div id="topNotification" class="top-notification">
+        <div class="notification-header">Something Went Wrong</div>
+        <span id="notificationMessage"></span>
+    </div>
+
+
     <div class="container">
         <h2>Create new password</h2>
         <p class="description">
@@ -37,9 +44,6 @@
                     <div class="icons-container">
                         <i class="fas fa-envelope icon"></i>
                     </div>
-                    @error('email')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
                 </div>
             </div>
 
@@ -60,9 +64,6 @@
                         <i class="fas fa-eye icon toggle-password"></i>
                         <span class="error-message">Password must be at least 8 characters</span>
                     </div>
-                    @error('password')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
                 </div>
             </div>
 
@@ -97,6 +98,24 @@
             Remember your password? <a href="{{ route('login') }}">Sign in</a>
         </div>
     </div>
+    <script>
+    // Function to show the top notification
+    function showTopNotification(message) {
+        var notification = document.getElementById('topNotification');
+        var messageElement = document.getElementById('notificationMessage');
+        messageElement.textContent = message;
+        notification.classList.add("show");  // Show the notification
+        setTimeout(function () {
+            notification.classList.remove("show");  // Hide the notification after animation
+        }, 3000);  // Duration of the slide-out animation (3 seconds)
+    }
+
+    @if ($errors->has('email') || $errors->has('password'))
+        showTopNotification("{!! $errors->first() !!}");
+    @elseif(session('error'))
+        showTopNotification("{!! session('error') !!}");
+    @endif
+</script>
 
     <script>
         // Password visibility toggle

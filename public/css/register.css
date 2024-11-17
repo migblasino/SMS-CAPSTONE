@@ -78,7 +78,7 @@ body {
 .form-links {
     display: flex;
     justify-content: space-between; /* Space between the links */
-    margin-top: 15px; /* Space above the links */
+    margin-top: 20px; /* Space above the links */
     font-size: 0.9em; /* Slightly smaller font size */
     color: #666; /* Grey color for the text */
     text-align: center;
@@ -99,18 +99,19 @@ body {
 
 .input-icon input {
     width: 100%;
-    padding: 11px 40px 11px 11px; 
+    padding: 12px 40px 12px 12px; 
     border: 1px solid #969595;
-    border-radius: 12px;
+    border-radius: 10px;
     font-size: 16px;
     color: #333;
-    transition: border-color 0.2s;
     background-color: transparent;
+    box-sizing: border-box;  /* Ensures border and padding are within the element's width */
 }
 
 .input-icon input:focus {
-    outline: none;
-    border-color: #0b5ed7;
+    border-color: #969595;  /* Border color on focus */
+    outline: 2px solid  #0d6efd;  /* Outline color outside the border */
+    outline-offset: 2px;  /* Space between the outline and the input field */
 }
 
 .input-icon i {
@@ -166,7 +167,7 @@ body {
 
 button {
     width: 100%;
-    padding: 11px;
+    padding: 10px;
     background-color: #0d6efd;
     color: white;
     border: none;
@@ -175,20 +176,67 @@ button {
     margin-top: 24px; /* Add some space above */
     font-size: 15px;
     font-weight: 500;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Soft shadow for depth */
 }
 
 button:hover {
     background-color: #0b5ed7;
+    transform: translateY(-2px);  /* Slight upward movement on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);  /* Slightly stronger shadow on hover */
 }
 
-.invalid-feedback {
-    color: red; /* Or any other color you prefer */
-    font-size: 0.9em;
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.5); /* Focus outline */
 }
 
-.is-invalid {
-    border: 1px solid red; /* Highlight input fields with an error */
+button:active {
+    background-color: #0a58ca;
+    transform: translateY(1px);  /* Slight downward movement on click */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Smaller shadow when active */
 }
+
+
+  /* Top notification style */
+  .top-notification {
+    visibility: hidden;
+    position: fixed;
+    top: -100px; /* Initially hidden off-screen */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff; /* White background */
+    color: #e74c3c; /* Red text color for error */
+    padding: 20px 30px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 15px;
+    z-index: 10000;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    display: flex;
+    flex-direction: column; /* Stack header and message */
+    align-items: center;
+    justify-content: flex-start; /* Align items at the top */
+    text-align: center;
+    transition: top 0.5s ease; /* Smooth slide transition for top position */
+}
+
+/* Header style */
+.notification-header {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Slide-in animation */
+.top-notification.show {
+    visibility: visible;
+    top: 20px; /* Slide down to this position */
+}
+
 
    /* Modal Base Styles */
    .modal {
@@ -228,31 +276,6 @@ button:hover {
     border-bottom: 1px solid #e5e7eb;
     position: relative;
 }
-
-.modal-back {
-    position: absolute;
-    top: 10px; /* Adjusted for better vertical positioning */
-    left: 24px;
-    transform: none; /* Removed translateY for simpler alignment */
-    background: none;
-    border: none;
-    color: #666;
-    cursor: pointer;
-    width: 45px;
-    height: 32px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-    z-index: 2;
-}
-
-.modal-back:hover {
-    background-color: #D1D5DB;
-}
-
-
 
 .modal-title {
     font-family: 'Arial', sans-serif;
@@ -406,10 +429,6 @@ button:hover {
             margin: 0;
         }
 
-        .modal-back {
-            top: 0px;
-            transform: none;
-        }
 
         .modal-header {
             padding: 20px 16px 12px;
@@ -425,10 +444,6 @@ button:hover {
             min-height: 44px;
         }
 
-        .modal-back {
-            min-width: 44px;
-            min-height: 44px;
-        }
     }
 
     /* Small Mobile Styles */
@@ -466,59 +481,75 @@ button:hover {
         }
     }
 
-/* Media query for mobile */
+/* Media query for mobile screens */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+    align-items: center; /* Center vertically */
+}
+
+/* Media query for mobile screens */
 @media (max-width: 768px) {
     body {
-        background-image: url('../img/signupmobile.png');
+        background-image: url('../img/signupmobile.png'); 
         background-color: transparent;
         justify-content: center;
         align-items: center; /* Center vertically */
     }
 
     .container {
-        width: 500px; /* Fix: Set width to 500px on mobile */
-        max-width: 100%; /* Prevent overflow */
-        padding: 20px;
-        margin: 0; /* Ensure no margin on the right */
-        margin-top: 248px; /* Adjust margin as needed */
+        width: 100%; /* Allow container to be full width on mobile */
+        max-width: 80%; /* Prevent overflow */
+        padding: 5px;
+        margin: 0; /* Remove extra margin */
+        margin-top: 50px; /* Adjust top margin for better alignment on mobile */
+        background-color: white; /* Ensure white background on mobile */
+        border-radius: 30px; /* Add rounded corners to the container */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Add shadow to the container */
     }
 
     .register-form h2 {
-        font-size: 30px;
-        font-family: 'Montserrat', sans-serif;
-        margin-bottom: 50px;
-        text-align: center;
-        color: #333333;
+        font-size: 24px; /* Adjust font size */
+        text-align: center; /* Center the heading */
     }
 
+    /* Adjust form padding and layout */
     .register-form {
-        padding: 15px; /* Slightly reduce padding */
+        padding: 20px; /* Add padding for better spacing */
     }
 
-    .form-group {
-        margin-bottom: 18px; /* Reduce margin for form groups */
-    }
-
+    /* Make the input field padding smaller */
     .input-icon input {
-        padding: 12px 32px 13px 13px; /* Adjust padding for mobile */
+        padding: 12px 40px 12px 12px; /* Adjust input padding */
     }
 
-    .input-icon i {
-        right: 15px; /* Adjust icon position for mobile */
-    }
-
+    /* Button styling */
     button {
-        padding: 13px; /* Adjust button padding */
-        
+        padding: 12px; /* Adjust button padding */
+        font-size: 16px; /* Increase font size */
+        border-radius: 25px; /* Round button corners */
     }
 
+    /* Adjust form link styling */
     .form-links {
-        justify-content: center; /* Center the links horizontally */
-        flex-direction: column; /* Stack links vertically */
-        align-items: center; /* Center items in the flex container */
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        font-size: 0.85em; /* Slightly smaller font size */
     }
 
     .form-links span {
-        display: none; /* Hide the separator on mobile */
+        display: none; /* Hide separator on mobile */
     }
 }
