@@ -23,6 +23,9 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ route('table') }}">Patient Data</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="">Monthly Record</a>
+          </li>
         </ul>
       </div>
     </li>
