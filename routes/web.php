@@ -68,3 +68,5 @@ Route::get('/termsprivacy', [App\Http\Controllers\TermsPrivacyController::class,
 //ABOUT
 Route::get('/about', [App\Http\Controllers\AboutController::class, 'index'])->name('about.index');
 });
+
+

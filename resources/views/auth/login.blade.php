@@ -11,25 +11,19 @@
 <body>
     <div class="container">
         <form class="login-form" action="{{ route('login') }}" method="POST">
-            @csrf
-            <h2>Sign In</h2>
+            @csrf   
+            <h5>BSMCMMS: Children's Malnutrition Monitoring System – United for a Healthier Future.</h5>   
+            <h2>Administrator Login</h2>
             <div class="form-group">
                 <div class="input-icon">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" id="email" name="email" class="@error('email') is-invalid @enderror" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
+                    <input type="email" id="email" name="email" class="@error('email') is-invalid @enderror" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="e.g bsmcmms@gmail.com">
                 </div>
-                @error('email')
-                <span class="invalid-feedback">{{ $message }}</span>
-                @enderror
             </div>
             <div class="form-group">
                 <div class="input-icon">
                     <i class="fas fa-eye" id="togglePassword" onclick="togglePassword()"></i>
                     <input id="password" type="password" class="@error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
-                
-                    @error('password')
-                    <span class="invalid-feedback">{{ $message }}</span>
-                   @enderror 
                 </div>
             </div>
             <div class="form-group">
@@ -37,7 +31,11 @@
                     <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
                 </label>
             </div>
-            <button type="submit">LOGIN</button>
+            <button type="submit">LOGIN</button>  
+
+
+
+
             <div class="form-links">
                 @if (Route::has('password.request'))
                     <a href="{{ route('password.request') }}">Forgot Password?</a>
@@ -45,102 +43,97 @@
                 <span>  </span>
                 <a href="{{ route('register') }}">Create a New Account</a> 
             </div>
-            <br>
+
+
             <div class="terms-container">
-    <p>By logging in, you agree to our <a href="#" class="terms-link" onclick="showModal(event, 'terms')">Terms </a>and you have read our <a href="#" class="terms-link" onclick="showModal(event, 'privacy')">Privacy Policy</a>.</p>
+    <p>By logging in, you agree to our <a href="#" class="terms-link" onclick="showModal(event, 'terms')">Terms of Service </a>and you have read our <a href="#" class="terms-link" onclick="showModal(event, 'privacy')">Privacy Policy</a>.</p>
 </div>          
         </form>
     </div>
 
     <div id="termsModal" class="modal" style="display: none;">
         <div class="modal-content">
-            <button class="modal-back">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                </svg>
-            </button>
             <div class="modal-header">
-    <h2 class="modal-title">Terms of Service</h2>
+    <h3 class="modal-title">Terms of Service</h3>
     <p class="last-updated">Last updated: 12th November 2024</p>
 </div>
 
 <div class="modal-body">
     <div class="section">
-        <h2 class="section-title">Summary</h2>
+        <h3 class="section-title">Understanding Our Terms of Service</h3>
         <p class="section-content">
-            By logging in to the San Manuel Children's Malnutrition Monitoring System, you agree to our Terms of Service (TOS) and accept responsibility for keeping your account secure. You acknowledge that any updates to the TOS will apply to your continued use of the system. We are not liable for any indirect damages or consequences resulting from your use of the platform.
+        Welcome to the BSMCMMS: Children's Malnutrition Monitoring System Admin Portal. As an administrator, you have access to sensitive health and nutrition data for children, and it is crucial that you follow our Terms of Service and privacy guidelines to ensure the safe and legal handling of this information.
+        </p>
+        <p class="section-content">
+        Before proceeding, please review our Terms of Service. These terms outline the responsibilities and legal obligations of administrators using the system.
         </p>
     </div>
 
     <div class="section">
-        <h2 class="section-title">Acceptance of Terms</h2>
+        <h3 class="section-title">What Are Terms of Service?</h3>
         <p class="section-content">
-            By logging in, you agree to comply with these Terms of Service and any related policies. Your use of the platform confirms your acceptance of these terms and obligations.
+        The Terms of Service (TOS) are the legal agreements between you (the administrator) and BSMCMMS. They govern your use of the platform and by accessing the Admin Portal, you are agreeing to comply with these terms. Your use of the system implies that you understand your role and responsibilities in managing sensitive health data for children.
         </p>
     </div>
 
     <div class="section">
-        <h2 class="section-title">Login Requirements</h2>
+        <h3 class="section-title">Key Points of Our Terms:</h3>
         <p class="section-content">
-            You must log in using accurate credentials and are responsible for keeping them confidential. Immediately notify us of any unauthorized activity or suspicious behavior on your account.
+            <strong>Admin Responsibilities:</strong>
+        </p>
+        <p class="section-content">
+        As an administrator, you are responsible for managing access, ensuring accurate data entry, and protecting the privacy of children’s health information. You agree not to misuse your administrative access to the system or share sensitive data without proper authorization.
         </p>
     </div>
+    <p class="section-content">
+            <strong>Data Security and Privacy:</strong>
+        </p>
+        <p class="section-content">
+        The health and nutrition data of children is extremely sensitive. You are required to follow strict data protection protocols in line with our Privacy Policy. Your actions must comply with applicable data protection laws to safeguard this information.
+        </p>
+        <p class="section-content">
+            <strong>Intellectual Property:</strong>
+        </p>
+        <p class="section-content">
+        All technology, content, and data within BSMCMMS are the property of BSMCMMS or its partners. As an admin, you are granted limited access to manage the system for the intended purposes but cannot reproduce, distribute, or alter system content without prior consent.
+        </p>
+        <p class="section-content">
+            <strong>Prohibited Activities:</strong>
+        </p>
+        <p class="section-content">
+        You agree not to modify, reverse-engineer, or otherwise attempt to tamper with the system’s security. Accessing data or performing actions outside your authorized role is strictly prohibited.
+        </p>
+        <p class="section-content">
+            <strong>Dispute Resolution:</strong>
+        </p>
+        <p class="section-content">
+        Any legal disputes will be resolved according to the procedures outlined in the Terms of Service, with an emphasis on confidentiality and data protection.
+        </p>
+
+
+
 
     <div class="section">
-        <h2 class="section-title">Account Security</h2>
+        <h2 class="section-title">Why Are the Terms of Service Important?</h2>
         <p class="section-content">
-            You are responsible for securing your account. This includes using strong passwords, logging out after use, and never sharing your credentials. We are not liable for any loss or damage resulting from a breach of your account security.
+            These Terms of Service are designed to ensure that BSMCMMS is used responsibly, ethically, and in full compliance with privacy laws. As an admin, you are entrusted with sensitive data and play a key role in maintaining the integrity and security of the platform. Your adherence to these terms is crucial to the success of the system and the safety of children’s health data.
+        </p>
+        <p class="section-content">
+        Agree to the Terms
+        By clicking Got it, you acknowledge that you have read, understood, and agree to our Terms of Service and Privacy Policy.
         </p>
     </div>
-
-    <div class="section">
-        <h2 class="section-title">User Responsibilities</h2>
-        <p class="section-content">
-              You agree to use the platform in accordance with applicable laws and not engage in any activity that could harm the system or violate its security measures.
-        </p>
     </div>
-
-    <div class="section">
-        <h2 class="section-title">Modifications to Terms</h2>
-        <p class="section-content">
-            We may update these Terms at any time. Continued use of the platform means you accept the revised terms. Please review these terms periodically.
-        </p>
-    </div>
-
-    <div class="section">
-        <h2 class="section-title">Limitation of Liability</h2>
-        <p class="section-content">
-            We are not liable for any indirect, incidental, or consequential damages that may arise from your use of the platform or service interruptions.
-        </p>
-    </div>
-
-    <div class="section">
-        <h2 class="section-title">Contact Information</h2>
-        <p class="section-content">
-            If you have any questions or concerns about these Terms of Service, feel free to contact us:
-        </p>
-        <p><span style="color: #666;">Email:</span> <a href="mailto:cmmshc@doh.gov.ph" style="color: #007bff; text-decoration: none;">cmmshc@doh.gov.ph</a></p>
-        <p><span style="color: #666;">Contact:</span> <a href="tel:+639516983253" style="color: #007bff; text-decoration: none;">+63 951 698 3253</a></p>
-    </div>
-</div>
-
 <div class="modal-footer">
     <button class="btn btn-accept" id="acceptTerms">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-        </svg>
-        Accept
+        Got it
     </button>
 </div>
         </div>
     </div>
 <div id="privacyModal" class="modal" style="display: none;">
     <div class="modal-content">
-        <button class="modal-back">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-            </svg>
-        </button>
+       
         
         <div class="modal-header">
             <h2 class="modal-title">Privacy Policy</h2>
@@ -149,81 +142,93 @@
 
         <div class="modal-body">
         <div class="section">
-    <h3 class="section-title">Summary</h3>
+    <h2 class="section-title">Understanding Our Privacy Policy</h2>
     <p class="section-content">
-        By logging in to the San Manuel Children's Malnutrition Monitoring System, you agree to our Privacy Policy and consent to the collection, use, and protection of your personal data as outlined in this document. We are committed to safeguarding your privacy and ensuring the security of your information. By continuing to use the platform, you acknowledge that any updates to this Privacy Policy will apply to your continued use of the system.
+        Welcome to the BSMCMMS: Children's Malnutrition Monitoring System Admin Portal. As an administrator, you are entrusted with sensitive health and nutrition data of children. It is essential that you comply with our Privacy Policy to ensure the proper handling, protection, and privacy of this information.
+    </p>
+    <p class="section-content">
+        Before proceeding, please review our Privacy Policy. These guidelines outline how we collect, store, and protect data within the system, as well as your responsibilities in ensuring that sensitive information remains confidential.
     </p>
 </div>
 
 <div class="section">
-    <h3 class="section-title">Information We Collect</h3>
+    <h3 class="section-title">What Is a Privacy Policy?</h3>
     <p class="section-content">
-        When you log in, we collect personal information such as your login credentials, contact details, and any data necessary for providing you with access to the system and its features. We may also collect usage data to improve the platform and enhance user experience.
+        A Privacy Policy is a legal document that explains how we collect, use, and safeguard your personal data, as well as the data of children monitored in the system. By accessing the Admin Portal, you agree to follow our privacy guidelines and respect the confidentiality of all data handled within the system.
     </p>
 </div>
 
 <div class="section">
-    <h3 class="section-title">Use of Personal Data</h3>
+    <h3 class="section-title">Key Points of Our Privacy Policy:</h3>
     <p class="section-content">
-        Your personal data is used to provide you with access to the system, manage your account, send notifications about system updates, and improve the services we offer. We do not share or sell your personal information to third parties without your explicit consent, except where required by law or in response to legal processes.
+        <strong>Data Collection and Usage:</strong>
+    </p>
+    <p class="section-content">
+        We collect sensitive health and nutrition data for the purpose of monitoring and improving children's well-being. As an administrator, you may access, modify, and analyze this data to ensure accurate and timely health assessments. You agree not to misuse this data for unauthorized purposes.
+    </p>
+
+    <p class="section-content">
+        <strong>Data Security and Protection:</strong>
+    </p>
+    <p class="section-content">
+        The health and nutritional data of children is highly sensitive. You are required to adhere to strict data protection protocols and follow industry best practices for securing this information. This includes using encrypted channels, ensuring data is stored securely, and limiting access to only authorized individuals.
+    </p>
+
+    <p class="section-content">
+        <strong>Data Sharing and Third-Party Access:</strong>
+    </p>
+    <p class="section-content">
+        BSMCMMS does not share sensitive data with third parties unless required by law or with your express consent. As an administrator, you are prohibited from sharing or disclosing personal health data to unauthorized parties.
+    </p>
+
+    <p class="section-content">
+        <strong>Data Retention:</strong>
+    </p>
+    <p class="section-content">
+        Personal health data will be retained for as long as necessary to fulfill its purpose and in accordance with legal requirements. Once the data is no longer needed, it will be securely deleted or anonymized.
+    </p>
+
+    <p class="section-content">
+        <strong>Confidentiality:</strong>
+    </p>
+    <p class="section-content">
+        As an administrator, you are entrusted with maintaining the confidentiality of all personal health and nutrition data. Any breach of this confidentiality may result in severe consequences, including termination of access to the system and potential legal action.
+    </p>
+
+    <p class="section-content">
+        <strong>Prohibited Activities:</strong>
+    </p>
+    <p class="section-content">
+        You agree not to engage in activities that may compromise the privacy or security of children's data, such as unauthorized data access, data modification, or disclosure of sensitive information.
+    </p>
+
+    <p class="section-content">
+        <strong>Dispute Resolution:</strong>
+    </p>
+    <p class="section-content">
+        Any disputes related to the privacy of data or breaches of this Privacy Policy will be handled in accordance with the procedures outlined in our Privacy Policy and relevant data protection laws.
     </p>
 </div>
 
 <div class="section">
-    <h3 class="section-title">Login and Account Security</h3>
+    <h3 class="section-title">Why Is the Privacy Policy Important?</h3>
     <p class="section-content">
-        You are responsible for maintaining the confidentiality of your login credentials. Please ensure that you use a strong password and log out after using the platform. If you notice any unauthorized access or suspicious activity on your account, you must notify us immediately. We are not liable for any loss or damage caused by unauthorized access to your account.
+        The Privacy Policy ensures that BSMCMMS is used responsibly, ethically, and in full compliance with privacy laws and regulations. As an administrator, you have access to sensitive data, and it is your responsibility to protect that information from unauthorized access or misuse. By adhering to this policy, you contribute to maintaining the trust and integrity of the system and ensure that children's health data remains secure.
+    </p>
+    <p class="section-content">
+        Agree to the Privacy Policy
+        By clicking Login, you acknowledge that you have read, understood, and agree to our Privacy Policy and Terms of Service.
     </p>
 </div>
-
-<div class="section">
-    <h3 class="section-title">Data Protection</h3>
-    <p class="section-content">
-        We implement reasonable security measures to protect your personal data from unauthorized access, use, or disclosure. However, please note that no system is completely secure. By using the platform, you acknowledge that data transmission over the internet carries some inherent risks.
-    </p>
 </div>
-
-<div class="section">
-    <h3 class="section-title">Retention of Personal Data</h3>
-    <p class="section-content">
-        We retain your personal data only for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law. If you wish to request the deletion of your data, please contact us as outlined below.
-    </p>
-</div>
-
-<div class="section">
-    <h3 class="section-title">Modifications to Privacy Policy</h3>
-    <p class="section-content">
-        We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated "Last Revised" date. Continued use of the platform after such updates signifies your acceptance of the revised Privacy Policy. We encourage you to review this policy periodically to stay informed about how we protect your data.
-    </p>
-</div>
-
-<div class="section">
-    <h3 class="section-title">Your Rights</h3>
-    <p class="section-content">
-        You have the right to access, correct, or delete your personal data at any time. If you wish to exercise any of these rights, please contact us using the details provided below. We will respond to your request in accordance with applicable data protection laws.
-    </p>
-</div>
-
-<div class="section">
-    <h3 class="section-title">Contact Information</h3>
-    <p class="section-content">
-        If you have any questions or concerns about this Privacy Policy or our data practices, please contact us:
-    </p>
-    <p><span style="color: #666;">Email:</span> <a href="mailto:cmmshc@doh.gov.ph" style="color: #007bff; text-decoration: none;">cmmshc@doh.gov.ph</a></p>
-    <p><span style="color: #666;">Contact:</span> <a href="tel:+639516983253" style="color: #007bff; text-decoration: none;">+63 951 698 3253</a></p>
-</div>
-        </div>
-
         <div class="modal-footer">
             <button class="btn btn-accept" id="acceptPrivacy">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-                Accept
+                Got it
             </button>
         </div>
     </div>
 </div>
+
     <div class="onboarding-container" id="onboarding">
         <div class="slide-container">
             <div class="slide active">
@@ -267,93 +272,124 @@
             <button class="btn btn-skip" onclick="skipOnboarding()">Skip</button>
             <button class="btn btn-next" onclick="nextSlide()">Next</button>
         </div>
+    </div> 
+
+  <!-- Enhanced Top Notification with Header -->
+  <div id="topNotification" class="top-notification">
+        <div class="notification-header">Something Went Wrong</div>
+        <span id="notificationMessage"></span>
     </div>
 
     <script>
+        // Function to show the top notification
+        function showTopNotification(message) {
+            var notification = document.getElementById('topNotification');
+            var messageElement = document.getElementById('notificationMessage');
+            messageElement.textContent = message;
+            notification.classList.add("show");  // Show the notification
+            setTimeout(function () {
+                notification.classList.remove("show");  // Hide the notification after animation
+            }, 3000);  // Duration of the slide-out animation (3 seconds)
+        }
+
+        @if ($errors->has('email') || $errors->has('password'))
+            showTopNotification("{{ $errors->first() }}");
+        @elseif(session('error'))
+            showTopNotification("{{ session('error') }}");
+        @endif
+    </script>
+
+
+ <script>
 const hasSeenOnboarding = localStorage.getItem('hasSeenOnboarding');
-        if (hasSeenOnboarding) {
-            document.getElementById('onboarding').classList.add('onboarding-hidden');
-            document.querySelector('.container').style.display = 'block';
+
+// If user has seen onboarding, hide the onboarding container and show the main content
+if (hasSeenOnboarding) {
+    document.getElementById('onboarding').classList.add('onboarding-hidden');
+    document.querySelector('.container').style.display = 'block'; // Show main content
+} else {
+    // Otherwise, show the onboarding process
+    document.querySelector('.container').style.display = 'none'; // Hide main content
+}
+
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+const nextBtn = document.querySelector('.btn-next');
+
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+});
+
+function handleSwipe() {
+    const swipeThreshold = 50;
+    const diff = touchStartX - touchEndX;
+
+    if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+            nextSlide();
+        } else {
+            previousSlide();
         }
+    }
+}
 
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.dot');
-        const nextBtn = document.querySelector('.btn-next');
+function showSlide(index) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
 
-        let touchStartX = 0;
-        let touchEndX = 0;
+    slides[index].classList.add('active');
+    dots[index].classList.add('active');
 
-        document.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
+    if (index === slides.length - 1) {
+        nextBtn.textContent = 'Get Started'; // Change button text on last slide
+    } else {
+        nextBtn.textContent = 'Next';
+    }
+}
 
-        document.addEventListener('touchend', e => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
+function nextSlide() {
+    currentSlide++;
+    if (currentSlide >= slides.length) {
+        completeOnboarding();
+        return;
+    }
+    showSlide(currentSlide);
+}
 
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            const diff = touchStartX - touchEndX;
+function previousSlide() {
+    if (currentSlide > 0) {
+        currentSlide--;
+        showSlide(currentSlide);
+    }
+}
 
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
+dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        currentSlide = index;
+        showSlide(currentSlide);
+    });
+});
 
-                    nextSlide();
-                } else {
-     
-                    previousSlide();
-                }
-            }
-        }
+function skipOnboarding() {
+    completeOnboarding();
+}
 
-        function showSlide(index) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            
-            slides[index].classList.add('active');
-            dots[index].classList.add('active');
+function completeOnboarding() {
+    // Set localStorage item to prevent showing onboarding again
+    localStorage.setItem('hasSeenOnboarding', 'true');
+    document.getElementById('onboarding').classList.add('onboarding-hidden');
+    document.querySelector('.container').style.display = 'block'; // Show main content
+}
 
-            if (index === slides.length - 1) {
-                nextBtn.textContent = 'Get Started';
-            } else {
-                nextBtn.textContent = 'Next';
-            }
-        }
-
-        function nextSlide() {
-            currentSlide++;
-            if (currentSlide >= slides.length) {
-                completeOnboarding();
-                return;
-            }
-            showSlide(currentSlide);
-        }
-
-        function previousSlide() {
-            if (currentSlide > 0) {
-                currentSlide--;
-                showSlide(currentSlide);
-            }
-        }
-
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentSlide = index;
-                showSlide(currentSlide);
-            });
-        });
-
-        function skipOnboarding() {
-            completeOnboarding();
-        }
-
-        function completeOnboarding() {
-            localStorage.setItem('hasSeenOnboarding', 'true');
-            document.getElementById('onboarding').classList.add('onboarding-hidden');
-            document.querySelector('.container').style.display = 'block';
-        }
 
         function togglePassword() {
             const passwordInput = document.getElementById('password');
@@ -372,7 +408,6 @@ const hasSeenOnboarding = localStorage.getItem('hasSeenOnboarding');
         const modal = document.getElementById('termsModal');
 const privacyModal = document.getElementById('privacyModal');
 const modalContent = document.querySelector('.modal-content');
-const backBtn = document.querySelectorAll('.modal-back');
 const acceptTermsBtn = document.getElementById('acceptTerms');
 const acceptPrivacyBtn = document.getElementById('acceptPrivacy');
 
@@ -396,10 +431,6 @@ function closeModal() {
     privacyModal.style.display = 'none';
     document.body.style.overflow = 'auto';
 }
-
-backBtn.forEach(button => {
-    button.addEventListener('click', closeModal);
-});
 
 acceptTermsBtn.addEventListener('click', () => {
     console.log('Terms accepted');

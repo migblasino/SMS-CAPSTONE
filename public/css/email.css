@@ -25,57 +25,72 @@ body {
     text-align: center;
 }
 
+
 h2 {
-    color: #333;
-    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
+    color:  #333333;
+    font-size: 25px;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 18px;
 }
 
-.description {
-    color: #666;
-    font-size: 14px;
-    line-height: 1.5;
-    margin-bottom: 24px;
-    padding: 0 12px;
-}
+h5 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15;
+    margin-bottom: 30px;
+    text-align: center;
+    color:   #444343;
+
+    }
 
 .form-group {
     margin-bottom: 16px;
     text-align: left;
     position: relative; /* Ensure icon is positioned correctly */
 }
-
 input[type="email"] {
     width: 100%;
-    padding: 13px 40px 13px 13px; /* Add padding to make space for the icon */
+    padding: 12px 40px 12px 12px; /* Padding for icon space */
     border-radius: 12px;
     border: 1px solid #969595;
     font-size: 16px;
     color: #333;
     background-color: transparent;
-    transition: border-color 0.2s;
     -webkit-appearance: none;
     appearance: none;
+    box-sizing: border-box; /* Ensure padding and border are included in width */
 }
 
 input[type="email"]:focus {
-    outline: none;
-    border-color: #0d6efd;
+    outline: none; /* Remove the default outline */
+    border-color: #0d6efd; /* Border color when focused */
+    outline: 2px solid #0d6efd; /* Optional outline to provide better focus visibility */
+    outline-offset: 2px; /* Space between the outline and the input field */
+}
+
+.form-group {
+    position: relative; /* Position context for the icon */
 }
 
 .form-group .fa-envelope {
     position: absolute;
     top: 50%;
     right: 15px;
-    transform: translateY(-50%);
+    transform: translateY(-50%); /* Vertically center the icon */
     font-size: 18px;
     color: #3e404b;
+    cursor: pointer;
 }
+
+/* Change icon color when the input is focused */
+input[type="email"]:focus + .form-group .fa-envelope {
+    color: #0d6efd;
+}
+
 
 button {
     width: 100%;
-    padding: 13px 24px;
+    padding: 10px 24px;
     background: #0d6efd;
     color: white;
     border: none;
@@ -122,14 +137,44 @@ button:active {
 .footer a:hover {
     text-decoration: underline;
 }
-
-.error-message {
-    color: #ef4444;
-    font-size: 14px;
-    margin-top: 8px;
-    display: none;
-    padding: 0 4px;
+  /* Top notification style */
+  .top-notification {
+    visibility: hidden;
+    position: fixed;
+    top: -100px; /* Initially hidden off-screen */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff; /* White background */
+    color: #e74c3c; /* Red text color for error */
+    padding: 20px 30px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 15px;
+    z-index: 10000;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    display: flex;
+    flex-direction: column; /* Stack header and message */
+    align-items: center;
+    justify-content: flex-start; /* Align items at the top */
+    text-align: center;
+    transition: top 0.5s ease; /* Smooth slide transition for top position */
 }
+
+/* Header style */
+.notification-header {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Slide-in animation */
+.top-notification.show {
+    visibility: visible;
+    top: 20px; /* Slide down to this position */
+}
+
 
 /* Mobile Specific Styles */
 @media (max-width: 480px) {
@@ -153,22 +198,23 @@ button:active {
     }
 
     h2 {
-        font-family: 'Inter', sans-serif;
-        font-size: 24px;
+        font-size: 25px;
         margin-top: 140px; /* Adjust as needed */
+        color:  #333333;
     }
 
-    .description {
-        font-size: 14px;
+    h5 {
+        font-size: 15px;
         margin-bottom: 50px;
     }
 
+
     input[type="email"] {
-        padding: 13px 16px;
+        padding: 12px 16px;
     }
 
     button {
-        padding: 13px;
+        padding: 12px;
         margin-top: 10px;
         font-size: 16px;
 
@@ -188,10 +234,11 @@ button:active {
     h2 {
         font-size: 25px;
     }
-
-    .description {
-        font-size: 13px;
+    h5 {
+        font-size: 15px;
+        margin-bottom: 50px;
     }
+
 
     input[type="email"] {
         padding: 12px 16px;

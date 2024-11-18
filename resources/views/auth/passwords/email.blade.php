@@ -9,12 +9,15 @@
     <title>Forgot Password</title>
 </head>
 <body>
+     <!-- Top Notification -->
+     <div id="topNotification" class="top-notification" role="alert">
+        <div class="notification-header">Something Went Wrong</div>
+        <span id="notificationMessage"></span>
+    </div>
+
     <div class="container">
         <h2>Forgot Password?</h2>
-        <p class="description">
-        In order to reset your password, enter the email associated with your account for instructions.
-        </p>
-
+        <h5>In order to reset your password, enter the email associated with your account for instructions.</h5>
         <form method="POST" action="{{ route('password.email') }}">
             @csrf
             <div class="form-group">
@@ -28,11 +31,6 @@
                     autofocus
                 >
                 <i class="fas fa-envelope"></i> <!-- Email icon -->
-                <div class="error-message" id="emailError">
-                    @error('email')
-                        {{ $message }}
-                    @enderror
-                </div>
             </div>
 
             <button type="submit">Send Password Reset Link</button>
@@ -44,11 +42,25 @@
     </div>
 
     <script>
-        // Show error message if it exists
-        const errorMessage = document.getElementById('emailError');
-        if (errorMessage.textContent.trim()) {
-            errorMessage.style.display = 'block';
+        // Function to show the top notification
+        function showTopNotification(message) {
+            var notification = document.getElementById('topNotification');
+            var messageElement = document.getElementById('notificationMessage');
+            messageElement.innerHTML = message;  // Use innerHTML to insert raw HTML content
+            notification.classList.add("show");  // Show the notification
+            setTimeout(function () {
+                notification.classList.remove("show");  // Hide after duration
+            }, 3000);  // Duration of the slide-out animation (3 seconds)
         }
+
+        // Laravel blade conditional check for error messages or session messages
+        @if ($errors->has('email'))
+            // Show notification with the first email error message
+            showTopNotification("{!! $errors->first('email') !!}");
+        @elseif(session('error'))
+            // Show notification with session error message
+            showTopNotification("{!! session('error') !!}");
+        @endif
     </script>
 </body>
 </html>

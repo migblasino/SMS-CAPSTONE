@@ -44,7 +44,7 @@
                           <h2 class="mb-0 font-weight-normal"><i class="icon-sun me-2"></i>31<sup>C</sup></h2>
                         </div>
                         <div class="ms-2">
-                          <h4 class="location font-weight-normal">Chicago</h4>
+                          <h4 class="location font-weight-normal">Puerto Princesa</h4>
                           <h6 class="font-weight-normal">Illinois</h6>
                         </div>
                       </div>
@@ -58,7 +58,7 @@
                     <div class="card card-tale">
                       <div class="card-body">
                         <p class="mb-4">Total Patient</p>
-                        <p class="fs-30 mb-2">406</p>
+                        <p class="fs-30 mb-2">{{$countTotalPatients}}</p>
                       </div>
                     </div>
                   </div>
