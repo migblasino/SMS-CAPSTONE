@@ -213,7 +213,7 @@
         // Slide out the notification after 3.5 seconds
         setTimeout(function () {
             notification.classList.remove("show");
-        }, 3500);  // Duration of the notification visibility (3.5 seconds)
+        }, 2500);  // Duration of the notification visibility (3.5 seconds)
     }
 
     // Check for validation errors or session errors and show the notification
@@ -345,6 +345,5 @@
         }
         
     </script>
-    
 </body>
 </html>

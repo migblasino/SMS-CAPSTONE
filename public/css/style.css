@@ -12762,6 +12762,9 @@ textarea.is-invalid.tt-hint, .select2-container--default .select2-selection--sin
   --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
+
+
+
 .card {
   --bs-card-spacer-y: 1rem;
   --bs-card-spacer-x: 1rem;
@@ -12769,7 +12772,7 @@ textarea.is-invalid.tt-hint, .select2-container--default .select2-selection--sin
   --bs-card-title-color: #010101;
   --bs-card-subtitle-color: ;
   --bs-card-border-width: var(--bs-border-width);
-  --bs-card-border-color: #e3e3e3;
+  --bs-card-border-color: #6d0000;
   --bs-card-border-radius: 20px;
   --bs-card-box-shadow: none;
   --bs-card-inner-border-radius: calc(var(--bs-border-radius) - (var(--bs-border-width)));
@@ -12862,6 +12865,12 @@ textarea.is-invalid.tt-hint, .select2-container--default .select2-selection--sin
 .card-footer:last-child {
   border-radius: 0 0 var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius);
 }
+
+
+
+
+
+
 
 .card-header-tabs {
   margin-right: calc(-0.5 * var(--bs-card-cap-padding-x));

@@ -260,7 +260,7 @@
                     <p>Partner with health workers to boost children's nutrition.</p>
                 </div>
             </div>
-        </div>
+        </div> 
 
         <div class="navigation-dots">
             <span class="dot active"></span>
@@ -272,7 +272,7 @@
             <button class="btn btn-skip" onclick="skipOnboarding()">Skip</button>
             <button class="btn btn-next" onclick="nextSlide()">Next</button>
         </div>
-    </div> 
+    </div>  
 
   <!-- Enhanced Top Notification with Header -->
   <div id="topNotification" class="top-notification">
@@ -289,7 +289,7 @@
             notification.classList.add("show");  // Show the notification
             setTimeout(function () {
                 notification.classList.remove("show");  // Hide the notification after animation
-            }, 3000);  // Duration of the slide-out animation (3 seconds)
+            }, 2500);  // Duration of the slide-out animation (3 seconds)
         }
 
         @if ($errors->has('email') || $errors->has('password'))

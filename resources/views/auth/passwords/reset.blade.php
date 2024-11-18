@@ -107,7 +107,7 @@
         notification.classList.add("show");  // Show the notification
         setTimeout(function () {
             notification.classList.remove("show");  // Hide the notification after animation
-        }, 3000);  // Duration of the slide-out animation (3 seconds)
+        }, 2500);  // Duration of the slide-out animation (3 seconds)
     }
 
     @if ($errors->has('email') || $errors->has('password'))

@@ -17,7 +17,9 @@
 
     <div class="container">
         <h2>Forgot Password?</h2>
-        <h5>In order to reset your password, enter the email associated with your account for instructions.</h5>
+        <p class="description">
+        In order to reset your password, enter the email associated with your account for instructions.
+        </p>
         <form method="POST" action="{{ route('password.email') }}">
             @csrf
             <div class="form-group">
@@ -50,7 +52,7 @@
             notification.classList.add("show");  // Show the notification
             setTimeout(function () {
                 notification.classList.remove("show");  // Hide after duration
-            }, 3000);  // Duration of the slide-out animation (3 seconds)
+            }, 2500);  // Duration of the slide-out animation (3 seconds)
         }
 
         // Laravel blade conditional check for error messages or session messages

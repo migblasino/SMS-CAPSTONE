@@ -149,44 +149,63 @@ button:active, .button:active {
     text-align: center;
 }
 
-  /* Top notification style */
-  .top-notification {
-    visibility: hidden;
+ /* General top notification style */
+.top-notification {
+    visibility: hidden;                   /* Initially hidden */
     position: fixed;
-    top: -100px; /* Initially hidden off-screen */
-    left: 50%;
+    top: -100px;                           /* Initially off-screen */
+    left: 50%;                             /* Center horizontally */
     transform: translateX(-50%);
-    background-color: #ffffff; /* White background */
-    color: #e74c3c; /* Red text color for error */
+    background-color: rgba(255, 255, 255, 0.8);  /* White background with transparency */
+    color: #e74c3c;                        /* Red text color */
     padding: 20px 30px;
     font-size: 16px;
     font-weight: 500;
-    border-radius: 15px;
-    z-index: 10000;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border-radius: 15px;                   /* Rounded corners */
+    z-index: 10000;                        /* Ensure it's on top */
+    width: 90%;                            /* Responsive width */
+    max-width: 400px;                      /* Maximum width */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
     display: flex;
-    flex-direction: column; /* Stack header and message */
-    align-items: center;
-    justify-content: flex-start; /* Align items at the top */
-    text-align: center;
-    transition: top 0.5s ease; /* Smooth slide transition for top position */
-}
-
-/* Header style */
-.notification-header {
+    flex-direction: column;                /* Stack content vertically */
+    align-items: center;                   /* Center items horizontally */
+    justify-content: flex-start;           /* Align content to the top */
+    text-align: center;                    /* Center text */
+    transition: top 0.5s ease, visibility 0s linear 0.5s; /* Smooth transition for visibility */
+    
+    /* Apply backdrop blur effect */
+    backdrop-filter: blur(8px);            /* 8px blur for the frosted-glass effect */
+    -webkit-backdrop-filter: blur(8px);     /* For Safari compatibility */
+  }
+  
+  /* Header style */
+  .notification-header {
     font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-/* Slide-in animation */
-.top-notification.show {
-    visibility: visible;
-    top: 20px; /* Slide down to this position */
-}
-
+    font-weight: 600;                      /* Bold header */
+    margin-bottom: 10px;                   /* Space below the header */
+  }
+  
+  /* Body style (for message content) */
+  .notification-body {
+    font-size: 16px;
+    font-weight: 400;
+    color: #555555;                       /* Slightly muted color for the message */
+  }
+  
+  /* Show notification when active */
+  .top-notification.show {
+    visibility: visible;                  /* Make visible */
+    top: 20px;                             /* Slide down to this position */
+    transition: top 0.5s ease, visibility 0s; /* Smooth transition for visibility */
+  }
+  
+  /* Fade-out and slide-up effect */
+  .top-notification.hide {
+    visibility: hidden;
+    top: -100px; /* Slide back off-screen */
+    transition: top 0.5s ease, visibility 0s linear 0.5s; /* Smooth transition back */
+  }
+  
 
 .terms-container {
     margin-top: 30px;
