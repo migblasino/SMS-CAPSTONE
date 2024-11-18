@@ -3884,8 +3884,5 @@ return [
         'overweight' => [28.1, 31.2],
         'obese' => [31.3 , PHP_INT_MAX],
     ],
-],
-[
-]
-
+ ]
 ];

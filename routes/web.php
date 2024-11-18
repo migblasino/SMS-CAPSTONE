@@ -27,10 +27,15 @@ Auth::routes(['verify' => true]);
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
+
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/add-patient', [App\Http\Controllers\PatientController::class, 'addIndex'])->name('add.index');
 Route::get('/table', [App\Http\Controllers\PatientController::class, 'index'])->name('table');
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard/filter-wfa', [App\Http\Controllers\DashboardController::class, 'filterWfa'])->name('filter.wfa');
+Route::get('/dashboard/filter-lfa', [App\Http\Controllers\DashboardController::class, 'filterLfa'])->name('filter.lfa');
+Route::get('/dashboard/filter-wfl', [App\Http\Controllers\DashboardController::class, 'filterWfl'])->name('filter.wfl');
 
 //CRUD OPERATIONS PATIENTS
 Route::post('/upload-patient', [App\Http\Controllers\PatientController::class, 'store'])->name('store.patient');
@@ -55,12 +60,6 @@ Route::get('/search-parent', [App\Http\Controllers\ParentController::class, 'sea
 
 Route::get('fullcalender', [EventCalendarController::class, 'index'])->name('calendar.index');
 Route::post('fullcalenderAjax', [EventCalendarController::class, 'ajax']);
-// Route::get('/calendar', [EventCalendarController::class, 'index'])->name('calendar');
-// Route::get('/events', 'EventCalendarController@index'); // Fetch all events
-// Route::post('/events', [EventCalendarController::class, 'store']);
-// Route::put('/events/{id}', 'EventCalendarController@update'); // Update an event
-// Route::delete('/events/{id}', 'EventCalendarController@destroy'); // Delete an event
-
 
 //TERMSPRIVACY
 Route::get('/termsprivacy', [App\Http\Controllers\TermsPrivacyController::class, 'index'])->name('termsprivacy.index');

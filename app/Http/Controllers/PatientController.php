@@ -242,6 +242,7 @@ class PatientController extends Controller
         $patient->height = $request->input('height');
         $patient->weight = $request->input('weight'); 
         $patient->parent_id = $request->input('parent_id');
+        $patient->status_id = 2;
         $age = Carbon::parse($patient->birthday)->diffInMonths(Carbon::now());
         $patient->wfa = $this->getWeightCategory($request->input('gender'), $age, $request->input('weight'));
         $patient->hfa = $this->getHeightCategory($request->input('gender'), $age, $request->input('height'));

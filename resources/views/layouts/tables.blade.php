@@ -168,6 +168,7 @@
                             <th>Weight for Age</th>
                             <th>Height for Age</th>
                             <th>Weight for Length/H</th>
+                            <th>Status</th>
                             <th>Action</th>
                           </tr>
                         </thead>
@@ -183,6 +184,7 @@
                             <td>{{ $patient->wfa }}</td>
                             <td>{{ $patient->hfa }}</td>
                             <td>{{ $patient->wfl_h }}</td>
+                            <td>{{ $patient->status->status_name}}</td>
                             <td>
                             <a href="{{ route('view.profile', ['id'=> $patient->id]) }}" class="btn btn-success btn-sm text-white"><i class="mdi mdi-eye text-white"></i></a>
                              @if($patient->age > 5)

@@ -17,6 +17,12 @@ class patients extends Model
     {
         return $this->belongsTo(parents::class, 'parent_id');
     }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'status_id');
+    }
+
     public function getAgeAttribute()
     {
         return Carbon::parse($this->birthday)->diffInMonths(Carbon::now());
