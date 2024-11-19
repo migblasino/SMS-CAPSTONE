@@ -103,13 +103,6 @@
                       @method('PUT')
                       <p class="card-description"> Personal information </p>
                       <div class="row">
-                      <div class="col-md-4">
-                          <div class="form-group row">
-                            <div class="col-sm-12">
-                              <input type="text" class="form-control" value="{{$patient->patient_id}}" name="patient_id" placeholder="Patient ID"/>
-                            </div>
-                          </div>
-                        </div>
                         <div class="col-md-4">
                           <div class="form-group row">
                             <div class="col-sm-12">
@@ -145,9 +138,7 @@
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="row">
-                      <div class="col-md-4">
+                        <div class="col-md-4">
                         <div class="form-group row">
                         <div class="col-sm-12">
                           <select class="form-select text-dark" name="gender" aria-label="Select Gender">
@@ -155,8 +146,10 @@
                           <option value="female" class="text-dark" {{ $patient->gender == 'female' ? ' selected' : '' }}>Female</option>
                           </select>
                       </div>
-                        </div>
+                     </div>
                     </div> 
+                   </div>   
+                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group row">
                             <div class="col-sm-12">
@@ -184,16 +177,17 @@
                           </div>
                       </div>
                   </div>
-                    </div>
-                    <div class="row">
-                    <div class="col-md-6">
+                  <div class="col-md-4">
                         <div class="form-group row">
                             <div class="col-sm-12">
                                 <input type="number" step="0.1" min="0" class="form-control"  value="{{$patient->weight}}" name="weight" placeholder="Weight(kg)"/>
                             </div>
                         </div>
                     </div>
-                      <div class="col-md-6">
+                    </div>
+                    <div class="row">
+                    
+                      <div class="col-md-12">
                           <div class="form-group row">
                             <div class="col-sm-12">
                               <input type="file" class="form-control"  value="{{$patient->profile_pic}}" name="profile_pic" placeholder="profile Picture"/>

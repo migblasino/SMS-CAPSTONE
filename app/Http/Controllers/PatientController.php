@@ -96,6 +96,7 @@ class PatientController extends Controller
 {
     $perPage = $request->input('perPage', 10);
     $ageGroup = $request->input('ageGroup');
+    $monthYear = $request->input('monthYear');
 
     // Base query for patients
     $query = patients::query();
@@ -115,14 +116,19 @@ class PatientController extends Controller
         $query->whereRaw('TIMESTAMPDIFF(MONTH, birthday, CURDATE()) BETWEEN 48 AND 59');
     }
 
-    // Pagination logic
-    if ($perPage == 'all') {
-        $patientsData = $query->orderBy('created_at','desc')->get();
-    } else {
-        $patientsData = $query->orderBy('created_at','desc')->paginate($perPage);
+    if ($monthYear) {
+        $query->whereYear('created_at', '=', date('Y', strtotime($monthYear)))
+              ->whereMonth('created_at', '=', date('m', strtotime($monthYear)));
     }
 
-    return view('layouts.tables', compact('patientsData', 'perPage', 'ageGroup'));
+    // Pagination logic
+    if ($perPage == 'all') {
+        $patientsData = $query->orderBy('created_at', 'desc')->get();
+    } else {
+        $patientsData = $query->orderBy('created_at', 'desc')->paginate($perPage);
+    }
+
+    return view('layouts.tables', compact('patientsData', 'perPage', 'ageGroup', 'monthYear'));
 }
 
 
@@ -149,7 +155,6 @@ class PatientController extends Controller
     {
         if ($request->has('submit')) {
             // Retrieve input fields
-            $patient_id = $request->input('patient_id');
             $lastname = $request->input('lastname');
             $firstname = $request->input('firstname');
             $middlename = $request->input('middlename');
@@ -183,21 +188,15 @@ class PatientController extends Controller
                 $profile_pic = null;
                 // return redirect()->back()->with('error', 'Profile picture is required.');
             }
-    
-           
-            $existingPatient = patients::where('patient_id', $patient_id)->first();
-            if ($existingPatient) {
-                return redirect()->back()->with('error', 'Patient already in records!');
-            }
 
             $data = [
-                'patient_id' => $patient_id,
                 'lastname' => $lastname,
                 'firstname' => $firstname,
                 'middlename' => $middlename,
                 'suffix' => $suffix,
                 'gender' => $gender,
                 'birthday' => $birthday,
+                'age_in_months' => $age,
                 'height' => $height,
                 'weight' => $weight,
                 'wfa' => $wfa,
@@ -225,20 +224,14 @@ class PatientController extends Controller
     }
     public function update( Request $request, String $id){
 
-    $patient = patients::findOrFail($id);
-        $existingPatient = patients::where('patient_id', $request->input('call_no'))
-        ->where('id', '!=', $id)
-        ->first();
-        if ($existingPatient) {
-        return redirect()->back()->with('error', 'Patient Id already Exist!');
-        }
-        $patient->patient_id = $request->input('patient_id');
+        $patient = patients::findOrFail($id);
         $patient->lastname = $request->input('lastname');
         $patient->firstname = $request->input('firstname');
         $patient->middlename = $request->input('middlename');
         $patient->suffix = $request->input('suffix');
         $patient->gender = $request->input('gender');
         $patient->birthday = $request->input('birthday');
+        $patient->age_in_months = Carbon::parse($patient->birthday)->diffInMonths(Carbon::now());
         $patient->height = $request->input('height');
         $patient->weight = $request->input('weight'); 
         $patient->parent_id = $request->input('parent_id');
