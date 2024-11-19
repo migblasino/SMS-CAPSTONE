@@ -119,6 +119,10 @@
                         <option value="36-47" {{ $ageGroup == '36-47' ? 'selected' : '' }}>36-47 months</option>
                         <option value="48-59" {{ $ageGroup == '48-59' ? 'selected' : '' }}>48-59 months</option>
                     </select>
+
+                    <label">Month-Year:</label>
+                    <input type="month" name="monthYear" id="monthYear" value="" class=""
+                    onchange="this.form.submit()">
                 </form>
 
                     <table id="patientTable" style="display:none;">
@@ -159,6 +163,7 @@
                       <table  class="table">
                         <thead>
                           <tr>
+                            <th>Date Interviewed</th>
                             <th>Last Name</th>
                             <th>First Name</th>
                             <th>Middle Name</th>
@@ -175,19 +180,19 @@
                         <tbody>
                           @foreach ($patientsData as $patient)
                           <tr>
+                          <td>{{ \Carbon\Carbon::parse($patient->created_at)->format('F Y, j') }}</td>
                             <td>{{$patient->lastname}}</td>
                             <td>{{$patient->firstname}}</td>
                             <td>{{$patient->middlename}}</td>
                             <td >{{ \Carbon\Carbon::parse($patient->birthday)->format('F j, Y') }}</td>
                             <td>{{$patient->gender}}</td>
-                            <td class="{{ $patient->age > 5 ? 'text-danger fw-bold' : '' }}">{{$patient->age}}</td>
+                            <td class="{{ $patient->age_in_months > 5 ? 'text-danger fw-bold' : '' }}">{{$patient->age_in_months}}</td>
                             <td>{{ $patient->wfa }}</td>
                             <td>{{ $patient->hfa }}</td>
                             <td>{{ $patient->wfl_h }}</td>
                             <td>{{ $patient->status->status_name}}</td>
                             <td>
                             <a href="{{ route('view.profile', ['id'=> $patient->id]) }}" class="btn btn-success btn-sm text-white"><i class="mdi mdi-eye text-white"></i></a>
-                             @if($patient->age > 5)
                               <a href="" data-bs-toggle="modal" data-bs-target="#deleteModal{{$patient->id}}" class="btn btn-danger btn-sm text-white"><i class="mdi mdi-delete text-white"></i></a>
                               <div class="modal fade" id="deleteModal{{$patient->id}}" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog ">
@@ -211,7 +216,6 @@
                                 </div>
                               </div>
                             </td>
-                            @endif
                           </tr>
                           @endforeach
                         </tbody>
