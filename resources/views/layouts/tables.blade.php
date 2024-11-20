@@ -121,7 +121,7 @@
                     </select>
 
                     <label">Month-Year:</label>
-                    <input type="month" name="monthYear" id="monthYear" value="" class=""
+                    <input type="month" name="monthYear" id="monthYear" value="{{ request('monthYear') }}"  class=""
                     onchange="this.form.submit()">
                 </form>
 
@@ -167,8 +167,9 @@
                             <th>Last Name</th>
                             <th>First Name</th>
                             <th>Middle Name</th>
-                            <th>Birthday</th>
                             <th>Gender</th>
+                            <th>Birthday</th>
+                            <th>District</th>
                             <th>Age in Month</th>
                             <th>Weight for Age</th>
                             <th>Height for Age</th>
@@ -180,12 +181,13 @@
                         <tbody>
                           @foreach ($patientsData as $patient)
                           <tr>
-                          <td>{{ \Carbon\Carbon::parse($patient->created_at)->format('F Y, j') }}</td>
+                          <td>{{ \Carbon\Carbon::parse($patient->created_at)->format('F j, Y') }}</td>
                             <td>{{$patient->lastname}}</td>
                             <td>{{$patient->firstname}}</td>
                             <td>{{$patient->middlename}}</td>
                             <td >{{ \Carbon\Carbon::parse($patient->birthday)->format('F j, Y') }}</td>
                             <td>{{$patient->gender}}</td>
+                            <td>{{ $patient->district->district_name ?? '' }}</td>
                             <td class="{{ $patient->age_in_months > 5 ? 'text-danger fw-bold' : '' }}">{{$patient->age_in_months}}</td>
                             <td>{{ $patient->wfa }}</td>
                             <td>{{ $patient->hfa }}</td>

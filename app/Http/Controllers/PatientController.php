@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\patients;
 use App\Models\parents;
+use App\Models\Districts;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -137,7 +138,8 @@ class PatientController extends Controller
 
     public function addIndex(){
         $parents = parents::with('patients')->get();
-        return view('layouts.add-patient', compact('parents'));
+        $districts = Districts::with('patientsDistrict')->get();
+        return view('layouts.add-patient', compact('parents','districts'));
     }
 
     public function viewProfile(String $id) {    
@@ -163,7 +165,8 @@ class PatientController extends Controller
             $birthday = $request->input('birthday');
             $height = $request->input('height'); 
             $weight = $request->input('weight'); 
-            $parent_id = $request->input('parent_id'); // Use input for parent_id
+            $parent_id = $request->input('parent_id');
+            $district_id = $request->input('district_id');  
             $age = Carbon::parse($birthday)->diffInMonths(Carbon::now());
             $wfa = $this->getWeightCategory($request->input('gender'), $age, $request->input('weight'));
             $hfa = $this->getHeightCategory($request->input('gender'), $age, $request->input('height'));
@@ -203,6 +206,7 @@ class PatientController extends Controller
                 'hfa' => $hfa,
                 'wfl_h' => $wfl_h,
                 'parent_id' => $parent_id,
+                'district_id' => $district_id,
                 'profile_pic' => $profile_pic, 
             ];
 
@@ -219,8 +223,9 @@ class PatientController extends Controller
 
     public function editIndex(string $id){
         $parents = parents::with('patients')->get();
+        $districts = Districts::with('patientsDistrict')->get();
         $patient = patients::findOrFail($id);
-        return view('layouts.edit-patient', compact('patient','parents'));
+        return view('layouts.edit-patient', compact('patient','parents','districts'));
     }
     public function update( Request $request, String $id){
 
@@ -235,6 +240,7 @@ class PatientController extends Controller
         $patient->height = $request->input('height');
         $patient->weight = $request->input('weight'); 
         $patient->parent_id = $request->input('parent_id');
+        $patient->district_id = $request->input('district_id');
         $patient->status_id = 2;
         $age = Carbon::parse($patient->birthday)->diffInMonths(Carbon::now());
         $patient->wfa = $this->getWeightCategory($request->input('gender'), $age, $request->input('weight'));
