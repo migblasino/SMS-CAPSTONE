@@ -186,8 +186,27 @@
                     </div>
                     </div>
                     <div class="row">
-                    
-                      <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <select class="js-example-basic-single w-100" name="district_id">
+                                    @if($patient->district)
+                                        <option value="{{ $patient->district->id }}" selected>
+                                            {{ $patient->district->district_name }}
+                                        </option>
+                                    @else
+                                        <option disabled selected>Select District</option>
+                                    @endif
+                                    @foreach($districts as $district)
+                                        <option value="{{ $district->id }}">
+                                            {{ $district->district_name}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                      <div class="col-md-6">
                           <div class="form-group row">
                             <div class="col-sm-12">
                               <input type="file" class="form-control"  value="{{$patient->profile_pic}}" name="profile_pic" placeholder="profile Picture"/>
