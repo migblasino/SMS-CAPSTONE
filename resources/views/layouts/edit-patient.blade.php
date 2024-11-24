@@ -259,14 +259,14 @@ body {
     }
 /* General top notification style */
 /* General top notification style */
-.top-notification {
+  .top-notification {
     visibility: hidden;                   /* Initially hidden */
     position: fixed;
     top: -100px;                           /* Initially off-screen */
     left: 50%;                             /* Center horizontally */
     transform: translateX(-50%);           /* Adjust for exact centering */
     background-color: rgba(255, 255, 255, 0.8);  /* White background with transparency */
-    color: #e74c3c;                        /* Default text color (will be overridden for the header) */
+    color: #e74c3c;                        /* Red text color */
     padding: 20px 30px;
     font-size: 16px;
     font-weight: 500;
@@ -274,13 +274,14 @@ body {
     z-index: 10000;                        /* Ensure it's on top */
     width: 90%;                            /* Responsive width */
     max-width: 400px;                      /* Maximum width */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10); /* Even softer shadow */
     display: flex;
     flex-direction: column;                /* Stack content vertically */
     align-items: center;                   /* Center items horizontally */
     justify-content: flex-start;           /* Align content to the top */
     text-align: center;                    /* Center text */
     transition: top 0.5s ease, visibility 0s linear 0.5s; /* Smooth transition for visibility */
+
     /* Apply backdrop blur effect */
     backdrop-filter: blur(8px);            /* 8px blur for the frosted-glass effect */
     -webkit-backdrop-filter: blur(8px);     /* For Safari compatibility */
@@ -291,7 +292,7 @@ body {
     color: #333;  
     font-size: 18px;
     font-weight: 600;                      /* Bold header */
-    margin-bottom: 10px;                   /* Space below the header */
+   margin-bottom: 10px;                   /* Space below the header */
 }
 
 /* Body style (for message content) */
@@ -345,179 +346,179 @@ body {
               <div class="container mt-5">
                 <div class="card">
                     <div class="card-body">
-                    <h4 class="card-title d-flex justify-content-between align-items-center">
-    Edit Patient
+                    <h3 class="card-title d-flex justify-content-between align-items-center">
+                    Update Enrollment Information
     <div class="ms-auto d-flex gap-2">
         <a href="{{route('view.profile', ['id' => $patient->id ])}}" class="btn btn-warning btn-sm text-dark" style="border-radius: 0.50rem; padding: 0.5rem 1.25rem;">
-            View Profile
+        View Profile
         </a>
         <a href="#" data-bs-toggle="modal" data-bs-target="#myModal" class="btn btn-info btn-sm text-white" style="border-radius: 0.50rem; padding: 0.5rem 1.25rem;">
-            Add Parent
+        Add Parent/Guardian
         </a>
     </div>
-</h4>
+</h3>
 
                         <form class="form-sample" method="POST" action="{{ route('patient.update', ['id' => $patient->id]) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            <p class="card-description"> Personal information </p>
+                            <p class="card-description">Patient Personal information </p>
                             <div class="row">
                                 <!-- Last Name -->
-                                <div class="col-md-3">
-                                    <div class="form-group mb-3">
-                                        <label for="lastname" class="form-label">Last Name</label>
-                                        <input type="text" class="form-control @error('lastname') is-invalid @enderror" 
-                                               id="lastname" name="lastname" 
-                                               value="{{ old('lastname', $patient->lastname) }}" 
-                                               required placeholder="Enter last name"/>
-                                        @error('lastname')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+    <div class="col-md-3">
+        <div class="form-group mb-3">
+            <label for="lastname" class="form-label">Last Name</label>
+            <input type="text" class="form-control @error('lastname') is-invalid @enderror" 
+                   id="lastname" name="lastname" 
+                   value="{{ old('lastname', $patient->lastname) }}" 
+                   required placeholder="Enter last name"/>
+            @error('lastname')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
 
-                                <!-- First Name -->
-                                <div class="col-md-3">
-                                    <div class="form-group mb-3">
-                                        <label for="firstname" class="form-label">First Name</label>
-                                        <input type="text" class="form-control @error('firstname') is-invalid @enderror" 
-                                               id="firstname" name="firstname" 
-                                               value="{{ old('firstname', $patient->firstname) }}" 
-                                               required placeholder="Enter first name"/>
-                                        @error('firstname')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+    <!-- First Name -->
+    <div class="col-md-3">
+        <div class="form-group mb-3">
+            <label for="firstname" class="form-label">First Name</label>
+            <input type="text" class="form-control @error('firstname') is-invalid @enderror" 
+                   id="firstname" name="firstname" 
+                   value="{{ old('firstname', $patient->firstname) }}" 
+                   required placeholder="Enter first name"/>
+            @error('firstname')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
 
-                                <!-- Middle Name -->
-                                <div class="col-md-3">
-                                    <div class="form-group mb-3">
-                                        <label for="middlename" class="form-label">Middle Name</label>
-                                        <input type="text" class="form-control" 
-                                               id="middlename" name="middlename" 
-                                               value="{{ old('middlename', $patient->middlename) }}" 
-                                               placeholder="Enter middle name"/>
-                                    </div>
-                                </div>
+    <!-- Middle Name -->
+    <div class="col-md-3">
+        <div class="form-group mb-3">
+            <label for="middlename" class="form-label">Middle Name</label>
+            <input type="text" class="form-control" 
+                   id="middlename" name="middlename" 
+                   value="{{ old('middlename', $patient->middlename) }}" 
+                   placeholder="Enter middle name"/>
+        </div>
+    </div>
 
-                                <!-- Suffix -->
-                                <div class="col-md-3">
-                                    <div class="form-group mb-3">
-                                        <label for="suffix" class="form-label">Suffix</label>
-                                        <input type="text" class="form-control" 
-                                               id="suffix" name="suffix" 
-                                               value="{{ old('suffix', $patient->suffix) }}" 
-                                               placeholder="Jr., Sr., etc."/>
-                                    </div>
-                                </div>
-                            </div>
+    <!-- Suffix -->
+    <div class="col-md-3">
+        <div class="form-group mb-3">
+            <label for="suffix" class="form-label">Suffix</label>
+            <input type="text" class="form-control" 
+                   id="suffix" name="suffix" 
+                   value="{{ old('suffix', $patient->suffix) }}" 
+                   placeholder="Jr., Sr., etc."/>
+        </div>
+    </div>
+</div>
 
-                            <div class="row">
-                                <!-- Birthday -->
-                                <div class="col-md-4">
-                                    <div class="form-group mb-3">
-                                        <label for="birthday" class="form-label">Birthday</label>
-                                        <input type="date" class="form-control @error('birthday') is-invalid @enderror" 
-                                               id="birthday" name="birthday" 
-                                               value="{{ old('birthday', $patient->birthday) }}" 
-                                               required max="{{ now()->format('Y-m-d') }}"/>
-                                        @error('birthday')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+<div class="row">
+    <!-- Birthday -->
+    <div class="col-md-4">
+        <div class="form-group mb-3">
+            <label for="birthday" class="form-label">Birthday</label>
+            <input type="date" class="form-control @error('birthday') is-invalid @enderror" 
+                   id="birthday" name="birthday" 
+                   value="{{ old('birthday', $patient->birthday) }}" 
+                   required max="{{ now()->format('Y-m-d') }}"/>
+            @error('birthday')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
 
-                                <!-- Gender -->
-                                <div class="col-md-4">
-                                    <div class="form-group mb-3">
-                                        <label for="gender" class="form-label">Gender</label>
-                                        <select class="form-select @error('gender') is-invalid @enderror" 
-                                                id="gender" name="gender" 
-                                                required>
-                                            <option value="">Select Gender</option>
-                                            <option value="male" {{ old('gender', $patient->gender) == 'male' ? 'selected' : '' }}>Male</option>
-                                            <option value="female" {{ old('gender', $patient->gender) == 'female' ? 'selected' : '' }}>Female</option>
-                                        </select>
-                                        @error('gender')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+    <!-- Height -->
+    <div class="col-md-4">
+        <div class="form-group mb-3">
+            <label for="height" class="form-label">Height (cm)</label>
+            <input type="number" step="0.1" min="0" max="250" 
+                   class="form-control @error('height') is-invalid @enderror" 
+                   id="height" name="height" 
+                   value="{{ old('height', $patient->height) }}" 
+                   placeholder="Enter height in cm"/>
+            @error('height')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
 
-                                <!-- District -->
-                                <div class="col-md-4">
-                                    <div class="form-group mb-3">
-                                        <label for="district_id" class="form-label">District</label>
-                                        <select class="form-select @error('district_id') is-invalid @enderror" 
-                                                id="district_id" name="district_id" required>
-                                            <option value="">Select District</option>
-                                            @foreach($districts as $district)
-                                                <option value="{{ $district->id }}" 
-                                                    {{ old('district_id', $patient->district_id) == $district->id ? 'selected' : '' }}>
-                                                    {{ $district->district_name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('district_id')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
+    <!-- Weight -->
+    <div class="col-md-4">
+        <div class="form-group mb-3">
+            <label for="weight" class="form-label">Weight (kg)</label>
+            <input type="number" step="0.1" min="0" max="500" 
+                   class="form-control @error('weight') is-invalid @enderror" 
+                   id="weight" name="weight" 
+                   value="{{ old('weight', $patient->weight) }}" 
+                   placeholder="Enter weight in kg"/>
+            @error('weight')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+</div>
 
-                            <div class="row">
-                                <!-- Parent/Guardian -->
-                                <div class="col-md-4">
-                                    <div class="form-group mb-3">
-                                        <label for="parent_id" class="form-label">Parent/Guardian</label>
-                                        <select class="form-select @error('parent_id') is-invalid @enderror" 
-                                                id="parent_id" name="parent_id" 
-                                                required>
-                                            <option value="">Select Parent/Guardian</option>
-                                            @foreach($parents as $parent)
-                                                <option value="{{ $parent->id }}" 
-                                                    {{ old('parent_id', $patient->parent_id) == $parent->id ? 'selected' : '' }}>
-                                                    {{ $parent->lastname }}, {{ $parent->firstname }} {{ $parent->middlename }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('parent_id')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+<div class="row">
+    <!-- Gender -->
+    <div class="col-md-4">
+        <div class="form-group mb-3">
+            <label for="gender" class="form-label">Gender</label>
+            <select class="form-select @error('gender') is-invalid @enderror" 
+                    id="gender" name="gender" 
+                    required>
+                <option value="">Select Gender</option>
+                <option value="male" {{ old('gender', $patient->gender) == 'male' ? 'selected' : '' }}>Male</option>
+                <option value="female" {{ old('gender', $patient->gender) == 'female' ? 'selected' : '' }}>Female</option>
+            </select>
+            @error('gender')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
 
-                                <!-- Height -->
-                                <div class="col-md-4">
-                                    <div class="form-group mb-3">
-                                        <label for="height" class="form-label">Height (cm)</label>
-                                        <input type="number" step="0.1" min="0" max="250" 
-                                               class="form-control @error('height') is-invalid @enderror" 
-                                               id="height" name="height" 
-                                               value="{{ old('height', $patient->height) }}" 
-                                               placeholder="Enter height in cm"/>
-                                        @error('height')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+    <!-- Parent/Guardian -->
+    <div class="col-md-4">
+        <div class="form-group mb-3">
+            <label for="parent_id" class="form-label">Parent/Guardian</label>
+            <select class="form-select @error('parent_id') is-invalid @enderror" 
+                    id="parent_id" name="parent_id" 
+                    required>
+                <option value="">Select Parent/Guardian</option>
+                @foreach($parents as $parent)
+                    <option value="{{ $parent->id }}" 
+                        {{ old('parent_id', $patient->parent_id) == $parent->id ? 'selected' : '' }}>
+                        {{ $parent->lastname }}, {{ $parent->firstname }} {{ $parent->middlename }}
+                    </option>
+                @endforeach
+            </select>
+            @error('parent_id')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
 
-                                <!-- Weight -->
-                                <div class="col-md-4">
-                                    <div class="form-group mb-3">
-                                        <label for="weight" class="form-label">Weight (kg)</label>
-                                        <input type="number" step="0.1" min="0" max="500" 
-                                               class="form-control @error('weight') is-invalid @enderror" 
-                                               id="weight" name="weight" 
-                                               value="{{ old('weight', $patient->weight) }}" 
-                                               placeholder="Enter weight in kg"/>
-                                        @error('weight')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
+    <!-- District -->
+    <div class="col-md-4">
+        <div class="form-group mb-3">
+            <label for="district_id" class="form-label">District</label>
+            <select class="form-select @error('district_id') is-invalid @enderror" 
+                    id="district_id" name="district_id" required>
+                <option value="">Select District</option>
+                @foreach($districts as $district)
+                    <option value="{{ $district->id }}" 
+                        {{ old('district_id', $patient->district_id) == $district->id ? 'selected' : '' }}>
+                        {{ $district->district_name }}
+                    </option>
+                @endforeach
+            </select>
+            @error('district_id')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+</div>
 
                             <div class="row">
                                 <!-- Profile Picture -->

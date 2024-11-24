@@ -302,7 +302,7 @@ class PatientController extends Controller
         
         if ($patientsData->isEmpty()) {
             $searchedTerm = $search ?: 'your search'; // Fallback if search term is empty
-            return redirect()->back()->with('error', "No results found for '$searchedTerm'.");
+            return redirect()->back()->with('error', "Sorry, we couldn't find result for '$searchedTerm'.");
         }
     
         $ageGroup = $request->input('ageGroup');

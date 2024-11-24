@@ -1,6 +1,5 @@
 @include('includes.base')
 </head>
-
 <style>
    /* Reset and Base Styles */
 * {
@@ -260,14 +259,14 @@ body {
     }
   
  /* General top notification style */
-.top-notification {
+ .top-notification {
     visibility: hidden;                   /* Initially hidden */
     position: fixed;
     top: -100px;                           /* Initially off-screen */
     left: 50%;                             /* Center horizontally */
     transform: translateX(-50%);           /* Adjust for exact centering */
     background-color: rgba(255, 255, 255, 0.8);  /* White background with transparency */
-    color: #e74c3c;                        /* Default text color (will be overridden for the header) */
+    color: #e74c3c;                        /* Red text color */
     padding: 20px 30px;
     font-size: 16px;
     font-weight: 500;
@@ -275,13 +274,14 @@ body {
     z-index: 10000;                        /* Ensure it's on top */
     width: 90%;                            /* Responsive width */
     max-width: 400px;                      /* Maximum width */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10); /* Even softer shadow */
     display: flex;
     flex-direction: column;                /* Stack content vertically */
     align-items: center;                   /* Center items horizontally */
     justify-content: flex-start;           /* Align content to the top */
     text-align: center;                    /* Center text */
     transition: top 0.5s ease, visibility 0s linear 0.5s; /* Smooth transition for visibility */
+
     /* Apply backdrop blur effect */
     backdrop-filter: blur(8px);            /* 8px blur for the frosted-glass effect */
     -webkit-backdrop-filter: blur(8px);     /* For Safari compatibility */
@@ -345,16 +345,16 @@ body {
               <div class="container mt-5">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title d-flex justify-content-between align-items-center">
-                            Add Patient
+                        <h3 class="card-title d-flex justify-content-between align-items-center">
+                        Patient Enrollment Form
                             <a href="#" data-bs-toggle="modal" data-bs-target="#myModal" class="btn btn-info btn-sm text-white" style="border-radius: 0.50rem; padding: 0.5rem 1.25rem;">
-                                Add Parent
+                            Add Parent/Guardian
                             </a>
-                        </h4>
+                        </h3>
                         <form class="form-sample" method="POST" action="{{ route('store.patient') }}" enctype="multipart/form-data">
                             @csrf
                             
-                            <p class="card-description text-primary">Personal Information</p>
+                            <p class="card-description text-primary">Fill Out the Patient Information </p>
                             <div class="row">
     <!-- Last Name -->
     <div class="col-md-3">
@@ -425,65 +425,6 @@ body {
         </div>
     </div>
 
-    <!-- Gender -->
-    <div class="col-md-4">
-        <div class="form-group mb-3">
-            <label for="gender" class="form-label">Gender</label>
-            <select class="form-select @error('gender') is-invalid @enderror" 
-                    id="gender" name="gender" 
-                    required>
-                <option value="">Select Gender</option>
-                <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
-                <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
-            </select>
-            @error('gender')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
-    </div>
-
-    <!-- District -->
-    <div class="col-md-4">
-        <div class="form-group mb-3">
-            <label for="district_id" class="form-label">District</label>
-            <select class="form-select @error('district_id') is-invalid @enderror" 
-                    id="district_id" name="district_id" required>
-                <option value="">Select District</option>
-                @foreach($districts as $district)
-                    <option value="{{ $district->id }}" 
-                        {{ old('district_id') == $district->id ? 'selected' : '' }}>
-                        {{ $district->district_name }}
-                    </option>
-                @endforeach
-            </select>
-            @error('district_id')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <!-- Parent/Guardian -->
-    <div class="col-md-4">
-        <div class="form-group mb-3">
-            <label for="parent_id" class="form-label">Parent/Guardian</label>
-            <select class="form-select @error('parent_id') is-invalid @enderror" 
-                    id="parent_id" name="parent_id" 
-                    required>
-                <option value="">Select Parent/Guardian</option>
-                @foreach($parents as $parent)
-                    <option value="{{ $parent->id }}" {{ old('parent_id') == $parent->id ? 'selected' : '' }}>
-                        {{ $parent->lastname }}, {{ $parent->firstname }} {{ $parent->middlename }}
-                    </option>
-                @endforeach
-            </select>
-            @error('parent_id')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
-    </div>
-
     <!-- Height -->
     <div class="col-md-4">
         <div class="form-group mb-3">
@@ -516,6 +457,66 @@ body {
         </div>
     </div>
 </div>
+
+<div class="row">
+    <!-- Gender -->
+    <div class="col-md-4">
+        <div class="form-group mb-3">
+            <label for="gender" class="form-label">Gender</label>
+            <select class="form-select @error('gender') is-invalid @enderror" 
+                    id="gender" name="gender" 
+                    required>
+                <option value="">Select Gender</option>
+                <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
+                <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
+            </select>
+            @error('gender')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+
+    <!-- Parent/Guardian -->
+    <div class="col-md-4">
+        <div class="form-group mb-3">
+            <label for="parent_id" class="form-label">Parent/Guardian</label>
+            <select class="form-select @error('parent_id') is-invalid @enderror" 
+                    id="parent_id" name="parent_id" 
+                    required>
+                <option value="">Select Parent/Guardian</option>
+                @foreach($parents as $parent)
+                    <option value="{{ $parent->id }}" {{ old('parent_id') == $parent->id ? 'selected' : '' }}>
+                        {{ $parent->lastname }}, {{ $parent->firstname }} {{ $parent->middlename }}
+                    </option>
+                @endforeach
+            </select>
+            @error('parent_id')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+
+    <!-- District -->
+    <div class="col-md-4">
+        <div class="form-group mb-3">
+            <label for="district_id" class="form-label">District</label>
+            <select class="form-select @error('district_id') is-invalid @enderror" 
+                    id="district_id" name="district_id" required>
+                <option value="">Select District</option>
+                @foreach($districts as $district)
+                    <option value="{{ $district->id }}" 
+                        {{ old('district_id') == $district->id ? 'selected' : '' }}>
+                        {{ $district->district_name }}
+                    </option>
+                @endforeach
+            </select>
+            @error('district_id')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+</div>
+
 
 <div class="row">
     <!-- Profile Picture -->

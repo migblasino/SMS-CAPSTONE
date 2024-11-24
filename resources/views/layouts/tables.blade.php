@@ -10,7 +10,7 @@
         
 
  .container.mt-5 {
-
+    max-width: 1400px;
     background-color: white;
     border-radius: 16px;
     padding: 5px;
@@ -91,7 +91,7 @@
     margin-bottom: 1.5rem;
     padding: 1rem;
     background-color: var(--bg-light);
-    border-radius: 0.25rem;
+    border-radius: 0.50rem;
 
 }
 
@@ -158,21 +158,6 @@
     
 }
 
-.alert-dismissible .btn-close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0.75rem 1.25rem;
-    color: inherit;
-    background: transparent;
-    border: 0;
-    opacity: 0.5;
-    transition: opacity 0.2s ease-in-out;
-}
-
-.alert-dismissible .btn-close:hover {
-    opacity: 0.8;
-}
 
 .alert-danger {
     color: var(--alert-danger-text);
@@ -295,14 +280,15 @@
     }
   
 /* General top notification style */
-.top-notification {
+  /* General top notification style */
+  .top-notification {
     visibility: hidden;                   /* Initially hidden */
     position: fixed;
     top: -100px;                           /* Initially off-screen */
     left: 50%;                             /* Center horizontally */
     transform: translateX(-50%);           /* Adjust for exact centering */
     background-color: rgba(255, 255, 255, 0.8);  /* White background with transparency */
-    color: #e74c3c;                        /* Default text color (will be overridden for the header) */
+    color: #e74c3c;                        /* Red text color */
     padding: 20px 30px;
     font-size: 16px;
     font-weight: 500;
@@ -310,13 +296,14 @@
     z-index: 10000;                        /* Ensure it's on top */
     width: 90%;                            /* Responsive width */
     max-width: 400px;                      /* Maximum width */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10); /* Even softer shadow */
     display: flex;
     flex-direction: column;                /* Stack content vertically */
     align-items: center;                   /* Center items horizontally */
     justify-content: flex-start;           /* Align content to the top */
     text-align: center;                    /* Center text */
     transition: top 0.5s ease, visibility 0s linear 0.5s; /* Smooth transition for visibility */
+
     /* Apply backdrop blur effect */
     backdrop-filter: blur(8px);            /* 8px blur for the frosted-glass effect */
     -webkit-backdrop-filter: blur(8px);     /* For Safari compatibility */
@@ -364,12 +351,6 @@
     visibility: hidden;
     top: -100px; /* Slide back off-screen */
     transition: top 0.5s ease, visibility 0s linear 0.5s; /* Smooth transition back */
-}
-
-
-/* Darken the background overlay when the modal is shown */
-.modal-backdrop {
-    background-color: rgba(0, 0, 0, 0.75);  /* Adjust the alpha (opacity) for darkness */
 }
 
 
@@ -423,11 +404,16 @@
             <button type="submit" class="input-group-text" aria-label="Search">
                 <i class="icon-search"></i>
             </button>
+            
         </div>
     </form>
 </div>
-<p class="card-description">List of Patients <code>San Miguel PPC</code></p>
-                                    <form method="GET" action="{{ route('table') }}" class="filters-container">
+                   
+
+
+
+
+<form method="GET" action="{{ route('table') }}" class="filters-container">
     <div class="filter-group">
         <label for="perPage" class="filter-label">Items per page:</label>
         <select name="perPage" id="perPage" class="form-control filter-select" onchange="this.form.submit()">
@@ -487,7 +473,7 @@
                 case 'error':
                 default:
                     notification.classList.add('notification-error');
-                    headerElement.textContent = header || 'Error';
+                    headerElement.textContent = header || 'No Result Found';
             }
 
             // Decode the message to handle HTML entities
@@ -655,6 +641,12 @@
         </div>
     @endif
 @endforeach
+<style>/* Dark background for modal content */
+/* Optional: Darken the modal backdrop */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.4); /* Darker backdrop */
+}
+</style>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>

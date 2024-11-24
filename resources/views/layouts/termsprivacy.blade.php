@@ -20,7 +20,6 @@
         }
 
         .container {
-            max-width: 1200px;
             margin: 0 auto;
             padding: 0rem;
             margin-bottom: -5rem;
@@ -200,7 +199,7 @@
                 <p>The system employs advanced encryption techniques and <strong>role-based access control</strong> to ensure that only authorized individuals can access, update, or delete sensitive data. Regular security audits are performed to identify and mitigate any potential threats.</p>
 
                 <h3>Data Retention</h3>
-                <p>We retain personal and health data for as long as necessary to fulfill the purposes of the system. Once the data is no longer needed, or if the child reaches the age of majority, it will be deleted in accordance with applicable laws.</p>
+                <p>We retain personal and health data for ongoing review and tracking of health progress over time. The data will be kept as long as necessary to fulfill this purpose and will not be deleted unless required by law, requested by the parent/guardian, or the owner of the personal data.</p>
             </div>
         </div>
         <!-- Footer -->

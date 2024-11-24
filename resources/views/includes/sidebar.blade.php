@@ -24,10 +24,10 @@
            <div class="collapse" id="patient-menu">
                <ul class="nav flex-column sub-menu">
                    <li class="nav-item">
-                       <a class="nav-link" href="{{ route('add.index') }}">Add Patient</a>
+                       <a class="nav-link" href="{{ route('add.index') }}">Patient Intake</a>
                    </li>
                    <li class="nav-item">
-                       <a class="nav-link" href="{{ route('table') }}">Patient List</a>
+                       <a class="nav-link" href="{{ route('table') }}">Patient Record</a>
                    </li>
                </ul>
            </div>

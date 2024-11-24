@@ -11,12 +11,6 @@
   --light-bg: #f9fafb;
 }
 
-/* Layout & Container */
-.content-wrapper {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem;
-}
 
 /* Card Design */
 .patient-card {
@@ -24,20 +18,11 @@
   border-radius: 16px;
   box-shadow: var(--card-shadow);
   overflow: hidden;
+  padding: 5px;
+
+  
 }
 
-
-/* Darken the background overlay when the modal is shown */
-.modal-backdrop {
-    background-color: rgba(0, 0, 0, 0.75);  /* Adjust the alpha (opacity) for darkness */
-}
-
-
-
-/* Main Content Layout */
-.card-body {
-  padding: 2rem;
-}
 
 /* Main Content Layout */
 .card-body {
@@ -158,6 +143,82 @@
   font-weight: 500;
 }
 
+
+/* General top notification style */
+  /* General top notification style */
+  .top-notification {
+    visibility: hidden;                   /* Initially hidden */
+    position: fixed;
+    top: -100px;                           /* Initially off-screen */
+    left: 50%;                             /* Center horizontally */
+    transform: translateX(-50%);           /* Adjust for exact centering */
+    background-color: rgba(255, 255, 255, 0.8);  /* White background with transparency */
+    color: #e74c3c;                        /* Red text color */
+    padding: 20px 30px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 15px;                   /* Rounded corners */
+    z-index: 10000;                        /* Ensure it's on top */
+    width: 90%;                            /* Responsive width */
+    max-width: 400px;                      /* Maximum width */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10); /* Even softer shadow */
+    display: flex;
+    flex-direction: column;                /* Stack content vertically */
+    align-items: center;                   /* Center items horizontally */
+    justify-content: flex-start;           /* Align content to the top */
+    text-align: center;                    /* Center text */
+    transition: top 0.5s ease, visibility 0s linear 0.5s; /* Smooth transition for visibility */
+
+    /* Apply backdrop blur effect */
+    backdrop-filter: blur(8px);            /* 8px blur for the frosted-glass effect */
+    -webkit-backdrop-filter: blur(8px);     /* For Safari compatibility */
+}
+
+
+/* Header style */
+.notification-header {
+    color: #333;  
+    font-size: 18px;
+    font-weight: 600;                      /* Bold header */
+    margin-bottom: 10px;                   /* Space below the header */
+}
+
+/* Body style (for message content) */
+.notification-body {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;                           /* Slightly muted color for the message */
+}
+
+/* Success Notification (Light Green) */
+.top-notification.notification-success .notification-header {
+    color: #4CAF50; /* Light Green */
+}
+
+/* Warning Notification (Soft Orange) */
+.top-notification.notification-warning .notification-header {
+    color: #FF9800; /* Soft Orange */
+}
+
+/* Error Notification (Soft Red) */
+.top-notification.notification-error .notification-header {
+    color: #F44336; /* Soft Red */
+}
+
+/* Show notification when active */
+.top-notification.show {
+    visibility: visible;                   /* Make visible */
+    top: 20px;                            /* Slide down to this position */
+    transition: top 0.5s ease, visibility 0s; /* Smooth transition for visibility */
+}
+
+/* Fade-out and slide-up effect */
+.top-notification.hide {
+    visibility: hidden;
+    top: -100px;                          /* Slide back off-screen */
+    transition: top 0.5s ease, visibility 0s linear 0.5s; /* Smooth transition back */
+}
+
 /* Action Buttons */
 .action-buttons {
   margin-top: 0rem;
@@ -195,77 +256,6 @@
 
 .btn-delete:hover {
   background-color: #dc2626;
-}
-
-/* General top notification style */
-.top-notification {
-    visibility: hidden;                   /* Initially hidden */
-    position: fixed;
-    top: -100px;                           /* Initially off-screen */
-    left: 50%;                             /* Center horizontally */
-    transform: translateX(-50%);           /* Adjust for exact centering */
-    background-color: rgba(255, 255, 255, 0.8);  /* White background with transparency */
-    color: #333;                        /* Default text color for body */
-    padding: 20px 30px;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 15px;                   /* Rounded corners */
-    z-index: 10000;                        /* Ensure it's on top */
-    width: 90%;                            /* Responsive width */
-    max-width: 400px;                      /* Maximum width */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
-    display: flex;
-    flex-direction: column;                /* Stack content vertically */
-    align-items: center;                   /* Center items horizontally */
-    justify-content: flex-start;           /* Align content to the top */
-    text-align: center;                    /* Center text */
-    transition: top 0.5s ease, visibility 0s linear 0.5s; /* Smooth transition for visibility */
-    /* Apply backdrop blur effect */
-    backdrop-filter: blur(8px);            /* 8px blur for the frosted-glass effect */
-    -webkit-backdrop-filter: blur(8px);     /* For Safari compatibility */
-}
-
-/* Header style */
-.notification-header {
-    font-size: 18px;
-    font-weight: 600;                      /* Bold header */
-    margin-bottom: 10px;                   /* Space below the header */
-}
-
-/* Body style (for message content) */
-.notification-body {
-    font-size: 16px;
-    font-weight: 400;
-    color: #333;                                 /* Slightly muted color for the message */
-}
-
-/* Success Notification */
-.notification-header.success {
-    color: #28a745; /* Green font color for success */
-}
-
-/* Error Notification */
-.notification-header.error {
-    color: #dc3545; /* Red font color for error */
-}
-
-/* Warning Notification */
-.notification-header.warning {
-    color: #ffc107; /* Yellow font color for warning */
-}
-
-/* Show notification when active */
-.top-notification.show {
-    visibility: visible;                  /* Make visible */
-    top: 20px;                             /* Slide down to this position */
-    transition: top 0.5s ease, visibility 0s; /* Smooth transition for visibility */
-}
-
-/* Fade-out and slide-up effect */
-.top-notification.hide {
-    visibility: hidden;
-    top: -100px; /* Slide back off-screen */
-    transition: top 0.5s ease, visibility 0s linear 0.5s; /* Smooth transition back */
 }
 
 
@@ -337,79 +327,8 @@
   .info-item {
     break-inside: avoid;
   }
-/* General top notification style */
-.top-notification {
-    visibility: hidden;                   /* Initially hidden */
-    position: fixed;
-    top: -100px;                           /* Initially off-screen */
-    left: 50%;                             /* Center horizontally */
-    transform: translateX(-50%);           /* Adjust for exact centering */
-    background-color: rgba(255, 255, 255, 0.8);  /* White background with transparency */
-    color: #e74c3c;                        /* Default text color (will be overridden for the header) */
-    padding: 20px 30px;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 15px;                   /* Rounded corners */
-    z-index: 10000;                        /* Ensure it's on top */
-    width: 90%;                            /* Responsive width */
-    max-width: 400px;                      /* Maximum width */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
-    display: flex;
-    flex-direction: column;                /* Stack content vertically */
-    align-items: center;                   /* Center items horizontally */
-    justify-content: flex-start;           /* Align content to the top */
-    text-align: center;                    /* Center text */
-    transition: top 0.5s ease, visibility 0s linear 0.5s; /* Smooth transition for visibility */
-    /* Apply backdrop blur effect */
-    backdrop-filter: blur(8px);            /* 8px blur for the frosted-glass effect */
-    -webkit-backdrop-filter: blur(8px);     /* For Safari compatibility */
 }
 
-/* Header style */
-.notification-header {
-    color: #333;  
-    font-size: 18px;
-    font-weight: 600;                      /* Bold header */
-    margin-bottom: 10px;                   /* Space below the header */
-}
-
-/* Body style (for message content) */
-.notification-body {
-    font-size: 16px;
-    font-weight: 400;
-    color: #333;                                 /* Slightly muted color for the message */
-}
-
-/* Success Notification (Light Green) */
-.top-notification.notification-success .notification-header {
-    color: #4CAF50; /* Light Green */
-}
-
-/* Warning Notification (Soft Orange) */
-.top-notification.notification-warning .notification-header {
-    color: #FF9800; /* Soft Orange */
-}
-
-/* Error Notification (Soft Red) */
-.top-notification.notification-error .notification-header {
-    color: #F44336; /* Soft Red */
-}
-
-/* Show notification when active */
-.top-notification.show {
-    visibility: visible;                  /* Make visible */
-    top: 20px;                             /* Slide down to this position */
-    transition: top 0.5s ease, visibility 0s; /* Smooth transition for visibility */
-}
-
-/* Fade-out and slide-up effect */
-.top-notification.hide {
-    visibility: hidden;
-    top: -100px; /* Slide back off-screen */
-    transition: top 0.5s ease, visibility 0s linear 0.5s; /* Smooth transition back */
-}
-
-}
 </style>
 
 <body>
@@ -486,7 +405,7 @@
       <!-- Date Interviewed -->
       <div class="info-item">
         <div class="info-label">Date Interviewed</div>
-        <div class="info-value">{{ \Carbon\Carbon::parse($patient->created_at)->timezone('Asia/Manila')->format('M d, Y') }}</div>
+        <div class="info-value">{{ \Carbon\Carbon::parse($patient->created_at)->timezone('Asia/Manila')->format('F j, Y') }}</div>
       </div>
     </div>
   </div>
@@ -519,24 +438,79 @@
         </div>
     </div>
 </div>
+
+
 <div class="action-buttons">
-<!-- Edit Button with Primary Color (Blue) -->
-<a href="{{route('edit.index', ['id'=> $patient->id]) }}" class="btn btn-primary fw-medium px-4 py-2 rounded">
-  <i class="mdi mdi-pencil"></i> Edit
-</a>
+    <!-- Edit Button with Primary Color (Blue) -->
+    <a href="{{route('edit.index', ['id'=> $patient->id]) }}" class="btn btn-primary fw-medium px-4 py-2 rounded edit-btn">
+        <i class="mdi mdi-pencil"></i> Edit Profile
+    </a>
 
-<!-- Delete Button with Danger Color (Red) -->
-<button type="button" onclick="openDeleteModal({{$patient->id}})" class="btn btn-danger fw-medium px-4 py-2 rounded">
-  <i class="mdi mdi-delete"></i> Delete
-</button>
+    <!-- Delete Button with Danger Color (Red) -->
+    <button type="button" onclick="openDeleteModal({{$patient->id}})" class="btn btn-danger fw-medium px-4 py-2 rounded delete-btn">
+        <i class="mdi mdi-delete"></i> Delete
+    </button>
+</div>
 
-
-            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+<style>/* General Button Styles */
+.action-buttons .btn {
+    font-weight: 500; /* Medium weight */
+    padding: 10px 20px;
+    border-radius: 30px; /* Rounded corners */
+    transition: all 0.3s ease; /* Smooth transition on hover */
+    display: inline-flex; /* Align icon and text */
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+}
+
+.action-buttons .btn i {
+    font-size: 1.2rem; /* Slightly larger icon */
+}
+
+/* Edit Button Styles */
+.edit-btn {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: #ffffff; /* White text */
+    border: none;
+}
+
+.edit-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3); /* Subtle shadow */
+}
+
+.edit-btn:focus {
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5); /* Focus effect */
+}
+
+/* Delete Button Styles */
+.delete-btn {
+    background-color: #dc3545; /* Danger color */
+    color: #ffffff; /* White text */
+    border: none;
+}
+
+.delete-btn:hover {
+    background-color: #c82333; /* Darker red on hover */
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3); /* Subtle shadow */
+}
+
+.delete-btn:focus {
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5); /* Focus effect */
+}
+
+/* Optional: Add spacing between buttons */
+.action-buttons {
+    display: flex;
+    gap: 15px; /* Space between buttons */
+}
+</style>
+
 
  <!-- Modified Delete Modal -->
 <div class="modal fade" id="deleteModal{{$patient->id}}" tabindex="-1" aria-labelledby="deleteModalLabel{{$patient->id}}" aria-hidden="true">
@@ -560,9 +534,8 @@
                     </form>
                 </div>
             </div>
-        </div>
-
-
+            </div>
+       
 
         <script>
     document.addEventListener('DOMContentLoaded', function() {
