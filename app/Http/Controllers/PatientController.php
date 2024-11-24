@@ -91,8 +91,6 @@ class PatientController extends Controller
     }
     
     
-    
-
     public function index(Request $request)
 {
     $perPage = $request->input('perPage', 10);
@@ -133,8 +131,6 @@ class PatientController extends Controller
 }
 
 
-
-    
 
     public function addIndex(){
         $parents = parents::with('patients')->get();
@@ -274,12 +270,9 @@ class PatientController extends Controller
     }
 
     public function searchPatient(Request $request)
-    
     {
-       
         $search = $request->input('searchPatient');
-        $query = patients::with('parents') 
-            ->orderBy('lastname', 'ASC');
+        $query = patients::with('parents')->orderBy('lastname', 'ASC');
         
         if (strlen($search) > 0) {
             $query->where(function ($q) use ($search) {
@@ -299,36 +292,37 @@ class PatientController extends Controller
                   });
             });
         }
+        
         $perPage = $request->input('perPage', 'all');
         if ($perPage === 'all') {
             $patientsData = $query->get();
         } else {
             $patientsData = $query->paginate($perPage); 
         }
+        
         if ($patientsData->isEmpty()) {
-            return redirect()->back()->with('error', 'No results found for your search.');
-        } 
-
+            $searchedTerm = $search ?: 'your search'; // Fallback if search term is empty
+            return redirect()->back()->with('error', "No results found for '$searchedTerm'.");
+        }
+    
         $ageGroup = $request->input('ageGroup');
-
-            $query = patients::query();
-
-            // Apply age group filtering
-            if ($ageGroup === '0-5') {
-                $query->whereRaw('TIMESTAMPDIFF(MONTH, birthday, CURDATE()) BETWEEN 0 AND 5');
-            } elseif ($ageGroup === '6-11') {
-                $query->whereRaw('TIMESTAMPDIFF(MONTH, birthday, CURDATE()) BETWEEN 6 AND 11');
-            } elseif ($ageGroup === '12-23') {
-                $query->whereRaw('TIMESTAMPDIFF(MONTH, birthday, CURDATE()) BETWEEN 12 AND 23');
-            } elseif ($ageGroup === '24-35') {
-                $query->whereRaw('TIMESTAMPDIFF(MONTH, birthday, CURDATE()) BETWEEN 24 AND 35');
-            } elseif ($ageGroup === '36-47') {
-                $query->whereRaw('TIMESTAMPDIFF(MONTH, birthday, CURDATE()) BETWEEN 36 AND 47');
-            } elseif ($ageGroup === '48-59') {
-                $query->whereRaw('TIMESTAMPDIFF(MONTH, birthday, CURDATE()) BETWEEN 48 AND 59');
-            }
-
-                return view('layouts.tables', compact('patientsData', 'perPage','ageGroup'));
-            }
-            
+    
+        // Apply age group filtering
+        if ($ageGroup === '0-5') {
+            $query->whereRaw('TIMESTAMPDIFF(MONTH, birthday, CURDATE()) BETWEEN 0 AND 5');
+        } elseif ($ageGroup === '6-11') {
+            $query->whereRaw('TIMESTAMPDIFF(MONTH, birthday, CURDATE()) BETWEEN 6 AND 11');
+        } elseif ($ageGroup === '12-23') {
+            $query->whereRaw('TIMESTAMPDIFF(MONTH, birthday, CURDATE()) BETWEEN 12 AND 23');
+        } elseif ($ageGroup === '24-35') {
+            $query->whereRaw('TIMESTAMPDIFF(MONTH, birthday, CURDATE()) BETWEEN 24 AND 35');
+        } elseif ($ageGroup === '36-47') {
+            $query->whereRaw('TIMESTAMPDIFF(MONTH, birthday, CURDATE()) BETWEEN 36 AND 47');
+        } elseif ($ageGroup === '48-59') {
+            $query->whereRaw('TIMESTAMPDIFF(MONTH, birthday, CURDATE()) BETWEEN 48 AND 59');
+        }
+    
+        return view('layouts.tables', compact('patientsData', 'perPage', 'ageGroup'));
+    }
+    
 }

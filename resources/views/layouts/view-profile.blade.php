@@ -1,297 +1,676 @@
 @include('includes.base')
+
 <style>
-  table, th, td {
-  border: 1px solid;
+:root {
+  --primary-color: #4f46e5;
+  --secondary-color: #6b7280;
+  --success-color: #10b981;
+  --danger-color: #ef4444;
+  --warning-color: #f59e0b;
+  --border-color: #e5e7eb;
+  --light-bg: #f9fafb;
+}
+
+/* Layout & Container */
+.content-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Card Design */
+.patient-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+
+
+/* Darken the background overlay when the modal is shown */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.75);  /* Adjust the alpha (opacity) for darkness */
+}
+
+
+
+/* Main Content Layout */
+.card-body {
+  padding: 2rem;
+}
+
+/* Main Content Layout */
+.card-body {
+  padding: 2rem;
+}
+
+.profile-content {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 3rem;
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Left Column - Photo & Quick Stats */
+.profile-left {
+  text-align: center;
+}
+
+.photo-container {
+  background: var(--light-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.patient-photo {
+  width: 250px;
+  height: 250px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 4px solid white;
+  box-shadow: var(--card-shadow);
+}
+
+.quick-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.stat-item {
+  background: var(--light-bg);
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--secondary-color);
+  margin-top: 0.25rem;
+}
+
+/* Right Column - Information Sections */
+.info-sections {
+  display: grid;
+  gap: 2rem;
+}
+
+.info-group {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  
+}
+
+.info-group-title {
+  color: var(--primary-color);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.info-group-title i {
+  font-size: 1.5rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.25rem;
+}
+
+.info-item {
+  background: var(--light-bg);
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.info-item:hover {
+  transform: translateY(-2px);
+}
+
+.info-label {
+  color: var(--secondary-color);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.info-value {
+  color: #1f2937;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Action Buttons */
+.action-buttons {
+  margin-top: 0rem;
+  padding-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn i {
+  font-size: 1.25rem;
+}
+
+
+.btn-edit {
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color:  #35B535;
+}
+
+.btn-delete {
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #dc2626;
+}
+
+/* General top notification style */
+.top-notification {
+    visibility: hidden;                   /* Initially hidden */
+    position: fixed;
+    top: -100px;                           /* Initially off-screen */
+    left: 50%;                             /* Center horizontally */
+    transform: translateX(-50%);           /* Adjust for exact centering */
+    background-color: rgba(255, 255, 255, 0.8);  /* White background with transparency */
+    color: #333;                        /* Default text color for body */
+    padding: 20px 30px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 15px;                   /* Rounded corners */
+    z-index: 10000;                        /* Ensure it's on top */
+    width: 90%;                            /* Responsive width */
+    max-width: 400px;                      /* Maximum width */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    display: flex;
+    flex-direction: column;                /* Stack content vertically */
+    align-items: center;                   /* Center items horizontally */
+    justify-content: flex-start;           /* Align content to the top */
+    text-align: center;                    /* Center text */
+    transition: top 0.5s ease, visibility 0s linear 0.5s; /* Smooth transition for visibility */
+    /* Apply backdrop blur effect */
+    backdrop-filter: blur(8px);            /* 8px blur for the frosted-glass effect */
+    -webkit-backdrop-filter: blur(8px);     /* For Safari compatibility */
+}
+
+/* Header style */
+.notification-header {
+    font-size: 18px;
+    font-weight: 600;                      /* Bold header */
+    margin-bottom: 10px;                   /* Space below the header */
+}
+
+/* Body style (for message content) */
+.notification-body {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;                                 /* Slightly muted color for the message */
+}
+
+/* Success Notification */
+.notification-header.success {
+    color: #28a745; /* Green font color for success */
+}
+
+/* Error Notification */
+.notification-header.error {
+    color: #dc3545; /* Red font color for error */
+}
+
+/* Warning Notification */
+.notification-header.warning {
+    color: #ffc107; /* Yellow font color for warning */
+}
+
+/* Show notification when active */
+.top-notification.show {
+    visibility: visible;                  /* Make visible */
+    top: 20px;                             /* Slide down to this position */
+    transition: top 0.5s ease, visibility 0s; /* Smooth transition for visibility */
+}
+
+/* Fade-out and slide-up effect */
+.top-notification.hide {
+    visibility: hidden;
+    top: -100px; /* Slide back off-screen */
+    transition: top 0.5s ease, visibility 0s linear 0.5s; /* Smooth transition back */
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .profile-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .profile-left {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2rem;
+    text-align: left;
+  }
+
+  .photo-container {
+  margin-bottom: -2rem;
+}
+  
+  .quick-stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) { 
+  .content-wrapper {
+    padding: 1rem;
+  }
+  
+  .profile-left {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .quick-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* Print Styles */
+@media print {
+  .main-panel {
+    padding: 0;
+  }
+
+  .action-buttons,
+  .navbar,
+  .sidebar {
+    display: none !important;
+  }
+
+  .patient-card {
+    box-shadow: none;
+    border: none;
+  }
+  
+  .info-item {
+    break-inside: avoid;
+  }
+/* General top notification style */
+.top-notification {
+    visibility: hidden;                   /* Initially hidden */
+    position: fixed;
+    top: -100px;                           /* Initially off-screen */
+    left: 50%;                             /* Center horizontally */
+    transform: translateX(-50%);           /* Adjust for exact centering */
+    background-color: rgba(255, 255, 255, 0.8);  /* White background with transparency */
+    color: #e74c3c;                        /* Default text color (will be overridden for the header) */
+    padding: 20px 30px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 15px;                   /* Rounded corners */
+    z-index: 10000;                        /* Ensure it's on top */
+    width: 90%;                            /* Responsive width */
+    max-width: 400px;                      /* Maximum width */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    display: flex;
+    flex-direction: column;                /* Stack content vertically */
+    align-items: center;                   /* Center items horizontally */
+    justify-content: flex-start;           /* Align content to the top */
+    text-align: center;                    /* Center text */
+    transition: top 0.5s ease, visibility 0s linear 0.5s; /* Smooth transition for visibility */
+    /* Apply backdrop blur effect */
+    backdrop-filter: blur(8px);            /* 8px blur for the frosted-glass effect */
+    -webkit-backdrop-filter: blur(8px);     /* For Safari compatibility */
+}
+
+/* Header style */
+.notification-header {
+    color: #333;  
+    font-size: 18px;
+    font-weight: 600;                      /* Bold header */
+    margin-bottom: 10px;                   /* Space below the header */
+}
+
+/* Body style (for message content) */
+.notification-body {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;                                 /* Slightly muted color for the message */
+}
+
+/* Success Notification (Light Green) */
+.top-notification.notification-success .notification-header {
+    color: #4CAF50; /* Light Green */
+}
+
+/* Warning Notification (Soft Orange) */
+.top-notification.notification-warning .notification-header {
+    color: #FF9800; /* Soft Orange */
+}
+
+/* Error Notification (Soft Red) */
+.top-notification.notification-error .notification-header {
+    color: #F44336; /* Soft Red */
+}
+
+/* Show notification when active */
+.top-notification.show {
+    visibility: visible;                  /* Make visible */
+    top: 20px;                             /* Slide down to this position */
+    transition: top 0.5s ease, visibility 0s; /* Smooth transition for visibility */
+}
+
+/* Fade-out and slide-up effect */
+.top-notification.hide {
+    visibility: hidden;
+    top: -100px; /* Slide back off-screen */
+    transition: top 0.5s ease, visibility 0s linear 0.5s; /* Smooth transition back */
+}
+
 }
 </style>
-  <body>
-      <!-- partial:partials/_navbar.html -->
-      @include('includes.navbar')
-      <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_sidebar.html -->
-        @include('includes.sidebar')
-        <!-- partial -->
-        <div class="main-panel">
-          <div class="content-wrapper">
-            <div class="row">
-              <div class="col-md-12 grid-margin">
-                <div class="row">
-                  <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                    <h3 class="font-weight-bold">Mabuhay mga Kabarangay!</h3>
-                    <h6 class="font-weight-normal mb-0">Every action taken towards addressing malnutrition brings hope for a healthier future.</h6>
+
+<body>
+  @include('includes.navbar')
+  <div class="container-fluid page-body-wrapper">
+    @include('includes.sidebar')
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="patient-card">
+          <div class="card-header">
+          <div class="card-body">
+            <div id="printableArea">
+              <div class="profile-content">
+                <div class="profile-left">
+                  <div class="photo-container">
+                    <img class="patient-photo"
+                         src="{{ $patient->profile_pic ? asset('storage/pictures/' . $patient->profile_pic) : asset('path/to/default/image.jpg') }}"
+                         alt="Patient Photo"
+                         onerror="this.src='{{ asset('path/to/default/image.jpg') }}'">
                   </div>
-                  <div class="col-12 col-xl-4">
-                    <div class="justify-content-end d-flex">
-                      <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
-                        <button class="btn btn-sm btn-light bg-white dropdown-toggle" type="button" id="dropdownMenuDate2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                          <i class="mdi mdi-calendar"></i> Today (10 Jan 2021) </button>
-                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuDate2">
-                          <a class="dropdown-item" href="#">January - March</a>
-                          <a class="dropdown-item" href="#">March - June</a>
-                          <a class="dropdown-item" href="#">June - August</a>1
-                          <a class="dropdown-item" href="#">August - November</a>
-                        </div>
-                      </div>
+                  
+                  <div class="quick-stats">
+                    <div class="stat-item">
+                      <div class="stat-value">{{ \Carbon\Carbon::parse($patient->birthday)->age }}</div>
+                      <div class="stat-label">Age</div>
+                    </div>
+                    <div class="stat-item">
+                      <div class="stat-value">{{$patient->height}}</div>
+                      <div class="stat-label">Height (cm)</div>
+                    </div>
+                    <div class="stat-item">
+                      <div class="stat-value">{{$patient->weight}}</div>
+                      <div class="stat-label">Weight (kg)</div>
+                    </div>
+                    <div class="stat-item">
+                      <div class="stat-value">{{ $patient->wfa }}</div>
+                      <div class="stat-label">WFA</div>
+                    </div>
+
+                    <div class="stat-item">
+                      <div class="stat-value">{{ $patient->hfa }}</div>
+                      <div class="stat-label">LFA</div>
+                    </div>
+
+                    <div class="stat-item">
+                      <div class="stat-value">{{ $patient->wfl_h }}</div>
+                      <div class="stat-label">WFH/L</div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          <div class="row">
-            <div class="col-md-12 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                        <div id="printableArea">
-                          <h3 class="font-weight-bold">Personal Information</h3>
-                          <br>
-                          <!-- First Row of Personal Information -->
-                          <div class="row">
-                              <div class="col-12 col-md-auto mb-2">
-                                  <h5><b class="card-title">Last Name:</b> <p class="custom-size mb-0" data-lastname>{{$patient->lastname}}</p></h5>
-                              </div>
-                              <div class="col-12 col-md-auto mb-2">
-                                  <h5><b class="card-title">First Name:</b> <p class="custom-size mb-0" data-firstname>{{$patient->firstname}}</p></h5>
-                              </div>
-                              <div class="col-12 col-md-auto mb-2">
-                                  <h5><b class="card-title">Middle Name:</b> <p class="custom-size mb-0" data-middlename>{{$patient->middlename}}</p></h5>
-                              </div>
-                              <div class="col-12 col-md-auto mb-2">
-                                  <h5><b class="card-title">Suffix:</b> <p class="custom-size mb-0" data-suffix>{{$patient->suffix ? $patient->suffix : ''}}</p></h5>
-                              </div>
-                              <div class="col-12 col-md-auto mb-2">
-                                  <h5><b class="card-title">Gender:</b> <p class="custom-size mb-0" data-gender>{{$patient->gender}}</p></h5>
-                              </div>
-                          </div>
-                          <br>
-                          <!-- Second Row of Personal Information -->
-                          <div class="row">
-                              <div class="col-12 col-md-auto mb-2">
-                                  <h5><b class="card-title">Birth Day:</b> <p class="custom-size mb-0" data-birthday>{{ \Carbon\Carbon::parse($patient->birthday)->format('F j, Y') }}</p></h5>
-                              </div>
-                              <div class="col-12 col-md-auto mb-2">
-                                  <h5><b class="card-title">Height (m):</b> <p class="custom-size mb-0" data-height>{{$patient->height}}</p></h5>
-                              </div>
-                              <div class="col-12 col-md-auto mb-2">
-                                  <h5><b class="card-title">Weight (kg):</b> <p class="custom-size mb-0" data-weight>{{$patient->weight}}</p></h5>
-                              </div>
-                              <div class="col-12 col-md-auto mb-2">
-                                  <h5><b class="card-title">Guardian:</b> <p class="custom-size mb-0" data-guardian>{{ $patient->parents ? $patient->parents->lastname . ', ' . $patient->parents->firstname . ' ' . $patient->parents->middlename : '' }}</p></h5>
-                              </div>
-                          </div>
-                      </div>
 
-                    <!-- Right Side: Client Picture -->
-                    <div class="client-picture">
-                         <img src=" {{ $patient->profile_pic ? asset('storage/pictures/' . $patient->profile_pic) : '' }}" alt="Client Picture" class="img-fluid" style="width: 200px; height: auto;">
-                    </div>
-                    </div>
-                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                    <div class="d-flex justify-content-center flex-wrap mb-5">
-                      <div class="mt-3 col-12 col-md-6 grid-margin stretch-card">
-                          <div class="card">
-                              <div class="card-body">
-                                  <h4 class="card-title">BMI Weight Status</h4>
-                                  <canvas id="barChart" style="height: 400px; width: 100%;"></canvas>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-
-                  <script>
-                      var bmi = {{ $bmi }};
-                      var label, backgroundColor, borderColor;
-
-                      if (bmi >= 16 && bmi < 18.5) {
-                          label = 'Underweight {{ $bmi }}';
-                          backgroundColor = 'rgba(255, 0, 0, 0.6)';
-                          borderColor = 'rgba(255, 0, 0, 1)'; // Red
-                      } else if (bmi >= 18.5 && bmi <= 25) {
-                          label = 'Normal  {{ $bmi }}';
-                          backgroundColor = 'rgba(0, 128, 0, 0.6)';
-                          borderColor = 'rgba(0, 128, 0, 1)'; // Green
-                      } else if (bmi > 25 && bmi <= 30) {
-                          label = 'Overweight {{ $bmi }}';
-                          backgroundColor = 'rgba(255, 255, 0, 0.6)'; // Yellow with 60% opacity
-                          borderColor = 'rgba(255, 255, 0, 1)'; // Yellow
-                      } else if (bmi > 30 && bmi <= 40) {
-                          label = 'Obese {{ $bmi }}';
-                          backgroundColor = 'rgba(128, 0, 0, 0.6)'; 
-                          borderColor = 'rgba(128, 0, 0, 1)'; // Maroon
-                      } else {
-                          label = 'Invalid BMI'; 
-                          backgroundColor = 'rgba(128, 128, 128, 0.6)'; 
-                          borderColor = 'rgba(128, 128, 128, 1)'; 
-                      }
-
-                      var ctx = document.getElementById('barChart').getContext('2d');
-                      var barChart = new Chart(ctx, {
-                          type: 'bar', // Specify the type of chart
-                          data: {
-                              labels: [label], // Label for the BMI category
-                              datasets: [{
-                                  label: 'BMI',
-                                  data: [bmi,35], // The calculated BMI value
-                                  backgroundColor: [
-                                      backgroundColor, // RGBA color based on BMI category
-                                  ],
-                                  borderColor: [
-                                      borderColor, // RGBA border color
-                                  ],
-                                  borderWidth: 1
-                              }]
-                          },
-                          options: {
-                              scales: {
-                                  y: {
-                                      beginAtZero: true,
-                                      title: {
-                                          display: true,
-                                          text: 'BMI Value' // Y-axis title
-                                      }
-                                  },
-                                  x: {
-                                      title: {
-                                          display: true,
-                                          text: 'BMI Category' // X-axis title
-                                      }
-                                  }
-                              }
-                          }
-                      });
-                  </script>
-                    <div class="text-center">
-                    <button onclick="printDiv('printableArea')" class="btn btn-info fw-bold text-white"><i class="mdi mdi-printer"></i> Print</button>
-                    <a href="{{route('edit.index', ['id'=> $patient->id]) }}" class="btn btn-warning text-white fw-bold">Edit</a>
-                    <a href="" data-bs-toggle="modal" data-bs-target="#deleteModal{{$patient->id}}" class="btn btn-danger text-white fw-bold"> Delete</a>
-                    <div class="modal fade" id="deleteModal{{$patient->id}}" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-                      <div class="modal-dialog ">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="myModalLabel">Delete Patient</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body ">
-                            <form action="{{ route('patient.delete', ['id' => $patient->id]) }}" method="POST">
-                              @csrf
-                              @method('DELETE')
-                            <p>Delete <span class="text-danger fw-bold">{{$patient->lastname}}, {{$patient->firstname}} {{$patient->middlename}}</span> as patient?</p>
-                        </div>
-                        <div class="modal-footer">
-                              
-                              <button type="submit" name="submit" class="btn btn-danger btn-sm text-white fw-bold">Delete</button>
-                              <button type="button" data-bs-dismiss="modal" class="btn btn-secondary btn-sm fw-bold"> Close</button>
-                          </div>
-                        </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-               </div>
-              </div>
-             </div>     
-          </div>
-       </div>
-    <footer class="footer">
-  <div class="d-sm-flex justify-content-center justify-content-sm-between">
-    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023. Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
-    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ms-1"></i></span>
-  </div>
-</footer>
-      <!-- partial -->
+                <div class="info-sections">
+  <div class="info-group">
+    <div class="info-group-title">
+      <i class="mdi mdi-account"></i>
+      Personal Information
     </div>
-    <!-- main-panel ends -->
+    <div class="info-grid">
+      <!-- Full Name -->
+      <div class="info-item">
+        <div class="info-label">Full Name</div>
+        <div class="info-value">{{ $patient->lastname }}, {{ $patient->firstname }} {{ $patient->middlename }}</div>
+      </div>
+      <!-- Gender -->
+      <div class="info-item">
+        <div class="info-label">Gender</div>
+        <div class="info-value">{{ ucfirst($patient->gender) }}</div>
+      </div>
+      <!-- Date of Birth -->
+      <div class="info-item">
+        <div class="info-label">Date of Birth</div>
+        <div class="info-value">{{ \Carbon\Carbon::parse($patient->birthday)->format('F j, Y') }}</div>
+      </div>
+      <!-- Date Interviewed -->
+      <div class="info-item">
+        <div class="info-label">Date Interviewed</div>
+        <div class="info-value">{{ \Carbon\Carbon::parse($patient->created_at)->timezone('Asia/Manila')->format('M d, Y') }}</div>
+      </div>
+    </div>
   </div>
-  <!-- page-body-wrapper ends -->
+
+
+
+             
+          
+                  <div class="info-group">
+    <div class="info-group-title">
+        <i class="mdi mdi-account-multiple"></i>
+        Guardian Information
+    </div>
+    <div class="info-grid">
+        <!-- Guardian Name -->
+        <div class="info-item">
+            <div class="info-label">Guardian Name</div>
+            <div class="info-value">
+                {{ $patient->parents ? $patient->parents->lastname . ', ' . $patient->parents->firstname . ' ' . $patient->parents->middlename : 'N/A' }}
+            </div>
+        </div>
+
+  
+        <!-- Guardian Contact -->
+        <div class="info-item">
+            <div class="info-label">Guardian Contact</div>
+            <div class="info-value">
+                {{ $patient->parents->contact_no ?? 'N/A' }}
+            </div>
+        </div>
+    </div>
 </div>
-<!-- Vendor JS -->
-<script>
-function printDiv(divId) {
-    var chartCanvas = document.getElementById('barChart');
-    var chartImage = chartCanvas.toDataURL('image/png');
+<div class="action-buttons">
+<!-- Edit Button with Primary Color (Blue) -->
+<a href="{{route('edit.index', ['id'=> $patient->id]) }}" class="btn btn-primary fw-medium px-4 py-2 rounded">
+  <i class="mdi mdi-pencil"></i> Edit
+</a>
 
-    // Fetching patient information from the DOM
-    var lastName = document.querySelector('[data-lastname]').textContent;
-    var firstName = document.querySelector('[data-firstname]').textContent;
-    var middleName = document.querySelector('[data-middlename]').textContent;
-    var suffix = document.querySelector('[data-suffix]').textContent;
-    var gender = document.querySelector('[data-gender]').textContent;
-    var birthday = document.querySelector('[data-birthday]').textContent;
-    var height = document.querySelector('[data-height]').textContent;
-    var weight = document.querySelector('[data-weight]').textContent;
-    var guardian = document.querySelector('[data-guardian]').textContent;
+<!-- Delete Button with Danger Color (Red) -->
+<button type="button" onclick="openDeleteModal({{$patient->id}})" class="btn btn-danger fw-medium px-4 py-2 rounded">
+  <i class="mdi mdi-delete"></i> Delete
+</button>
 
-    // Create the print window
-    var printWindow = window.open('', '_blank');
-    printWindow.document.write('<html><head><title>Print</title></head><body>');
 
-    printWindow.document.write('<div class="client-picture" style="text-align:center; margin-bottom: 20px;">');
-    printWindow.document.write('<img src="{{ $patient->profile_pic ? asset('storage/pictures/' . $patient->profile_pic) : '' }}" alt="Client Picture" style="width: 200px; height: auto;">');
-    printWindow.document.write('</div>');
-    
-    
-    // Add patient information to the print window
-    printWindow.document.write('<h4>Patient Information</h4>');
-    printWindow.document.write('<table border="1" cellpadding="5" cellspacing="0">');
-    printWindow.document.write('<tr>');
-    printWindow.document.write('<th>Last Name</th>');
-    printWindow.document.write('<th>First Name</th>');
-    printWindow.document.write('<th>Middle Name</th>');
-    printWindow.document.write('<th>Suffix</th>');
-    printWindow.document.write('<th>Gender</th>');
-    printWindow.document.write('<th>Birthday</th>');
-    printWindow.document.write('<th>Height (m)</th>');
-    printWindow.document.write('<th>Weight (kg)</th>');
-    printWindow.document.write('<th>Guardian</th>');
-    printWindow.document.write('</tr>');
-    printWindow.document.write('<tr>');
-    printWindow.document.write('<td>' + lastName + '</td>');
-    printWindow.document.write('<td>' + firstName + '</td>');
-    printWindow.document.write('<td>' + middleName + '</td>');
-    printWindow.document.write('<td>' + suffix + '</td>');
-    printWindow.document.write('<td>' + gender + '</td>');
-    printWindow.document.write('<td>' + birthday + '</td>');
-    printWindow.document.write('<td>' + height + ' m</td>');
-    printWindow.document.write('<td>' + weight + ' kg</td>');
-    printWindow.document.write('<td>' + guardian + '</td>');
-    printWindow.document.write('</tr>');
-    printWindow.document.write('</table>');
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    // Add the chart image
-    printWindow.document.write('<h4>BMI Weight Status</h4>');
-    printWindow.document.write('<img src="' + chartImage + '" style="max-width: 50%;">'); 
-    printWindow.document.write('</body></html>');
-    printWindow.document.close();
-    printWindow.print();
-}
+ <!-- Modified Delete Modal -->
+<div class="modal fade" id="deleteModal{{$patient->id}}" tabindex="-1" aria-labelledby="deleteModalLabel{{$patient->id}}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel{{$patient->id}}">Confirm Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="deleteForm{{$patient->id}}" action="{{ route('patient.delete', ['id' => $patient->id]) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <div class="modal-body">
+          <p>Are you sure you want to delete <span class="text-danger fw-bold">{{$patient->lastname}}, {{$patient->firstname}} {{$patient->middlename}}</span>?</p>
+          <p class="text-muted small">This action cannot be undone.</p>
+        </div>
+        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-sm rounded" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-danger btn-sm rounded">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to show top notification
+        function showTopNotification(message, type = 'error', header = null) {
+            const notification = document.getElementById('topNotification');
+            const messageElement = document.getElementById('notificationMessage');
+            const headerElement = document.getElementById('notificationHeader');
+
+            // Reset previous classes
+            headerElement.className = 'notification-header'; // Reset header classes
+
+            // Set type-specific styling
+            switch(type) {
+                case 'success':
+                    headerElement.classList.add('success'); // Add success class for green text
+                    headerElement.textContent = header || 'Success';
+                    break;
+                case 'warning':
+                    headerElement.classList.add('warning'); // Add warning class for yellow text
+                    headerElement.textContent = header || 'Warning';
+                    break;
+                case 'error':
+                default:
+                    headerElement.classList.add('error'); // Add error class for red text
+                    headerElement.textContent = header || 'Error';
+            }
+
+            // Decode the message to handle HTML entities
+            message = message.replace(/&#039;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+
+            // Set message
+            messageElement.textContent = message;
+
+            // Show notification
+            notification.classList.add('show');
+
+            // Auto-hide after 2.5 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2500);
+        }
+
+        // Listen for Laravel flash messages and trigger the notification
+        @if(session('success'))
+            showTopNotification('{{ session('success') }}', 'success');
+        @endif
+
+        @if(session('error'))
+            showTopNotification('{{ session('error') }}', 'error');
+        @endif
+
+        @if(session('warning'))
+            showTopNotification('{{ session('warning') }}', 'warning');
+        @endif
+
+        // Expose function globally if needed
+        window.showTopNotification = showTopNotification;
+    });
 </script>
 
 
 
-<script src="{{ asset('vendors/js/vendor.bundle.base.js') }}"></script>
+
+<script>function openDeleteModal(patientId) {
+  var myModal = new bootstrap.Modal(document.getElementById('deleteModal' + patientId));
+  myModal.show();
+}</script>
+  <!-- Make sure Bootstrap JS and its dependencies are included if not already in includes.base -->
+  @if(!View::hasSection('scripts'))
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+  @endif
+
+  <script>
+    function printDiv(divName) {
+      var printContents = document.getElementById(divName).innerHTML;
+      var originalContents = document.body.innerHTML;
+      document.body.innerHTML = printContents;
+      window.print();
+      document.body.innerHTML = originalContents;
+    }
+    <!-- container-scroller -->
+<!-- plugins:js -->
+<script src="{{ asset ('vendors/js/vendor.bundle.base.js') }}"></script>
 <!-- endinject -->
+<!-- Plugin js for this page -->
+<!-- Vendor JS -->
+<script src="{{ asset('vendors/typeahead.js/typeahead.bundle.min.js') }}"></script>
+<script src="{{ asset('vendors/select2/select2.min.js') }}"></script>
+<!-- End plugin js for this page -->
 
-<!-- Plugin JS for this page -->
-<script src="{{ asset('vendors/chart.js/chart.umd.js') }}"></script>
-<script src="{{ asset('vendors/datatables.net/jquery.dataTables.js') }}"></script>
-{{-- Uncomment if needed --}}
-{{-- <script src="{{ asset('vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script> --}}
-<script src="{{ asset('vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
-<script src="{{ asset('js/dataTables.select.min.js') }}"></script>
-<!-- End plugin JS for this page -->
-
-<!-- Core JS (injected JS) -->
+<!-- inject:js -->
 <script src="{{ asset('js/off-canvas.js') }}"></script>
 <script src="{{ asset('js/template.js') }}"></script>
 <script src="{{ asset('js/settings.js') }}"></script>
 <script src="{{ asset('js/todolist.js') }}"></script>
 <!-- endinject -->
 
-<!-- Custom JS for this page -->
-<script src="{{ asset('js/jquery.cookie.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/dashboard.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Custom js for this page-->
+<script src="{{ asset('js/file-upload.js') }}"></script>
+<script src="{{ asset('js/typeahead.js') }}"></script>
+<script src="{{ asset('js/select2.js') }}"></script>
+<!-- End custom js for this page-->
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Include Select2 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-  </body>
-</html>
+</body>
